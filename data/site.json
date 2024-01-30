@@ -1,0 +1,24 @@
+{"site": {
+    "title": "Davro Network",
+    "keywords": "blog, books, coding, crypto",
+    "navigation": {
+        "home": [
+            {"value": "Home", "href": ""}
+        ],
+        "blog": [
+            {"value": "Blog", "href": ""}
+        ],
+        "books": [
+            {"value": "Books", "href": ""}
+        ],
+        "coding": [
+            {"value": "Coding", "href": ""}
+        ],
+        "crypto": [
+            {"value": "Crypto", "href": ""}
+        ]
+    }
+}}
+
+
+
