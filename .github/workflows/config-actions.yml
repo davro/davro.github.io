@@ -37,4 +37,4 @@ jobs:
       - name: PHP Testing Extensions
         run: |
           php -m
-          php -r test.php
+          php test.php
