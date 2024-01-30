@@ -33,3 +33,8 @@ jobs:
           <?php
           $welcome = "Hello, world";
           echo $welcome;
+
+      - name: PHP Testing Extensions
+        run: |
+          php -m
+          php -r test.php
