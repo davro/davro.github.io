@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: GitHub Actions - Davro Config
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
@@ -18,12 +18,16 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
 
-      - name: Setup PHP
+      - name: PHP Setup
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
 
-      - name: Run PHP code
+      - name: PHP Composer version
+        run: |
+          composer -V
+
+      - name: PHP code
         shell: php {0}
         run: |
           <?php
