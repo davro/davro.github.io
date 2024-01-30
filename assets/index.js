@@ -60,12 +60,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const card = document.createElement("div");
         card.className = "col";
 
+        //<h5 class="card-title">${article.title}</h5>
+        //<p class="card-text">${article.content}</p>
         card.innerHTML = `
             <div class="card">
             <div class="card-body">
-            <h5 class="card-title">${article.title}</h5>
-            <img src="${article.image}" />
-            <p class="card-text">${article.content}</p>
+            <a href="${article.url}"><img src="${article.image}" /></a>
             </div>
             </div>
             `;
