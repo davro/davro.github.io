@@ -26,6 +26,6 @@ jobs:
       - name: Run PHP code
         shell: php {0}
         run: |
-<?php
-$welcome = "Hello, world";
-echo $welcome;
+          <?php
+          $welcome = "Hello, world";
+          echo $welcome;
