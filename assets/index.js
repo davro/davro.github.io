@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Populate the articles grid
             const articleGrid = document.getElementById("article-grid");
-            data.articles.forEach(article => {
+            data.site.articles.forEach(article => {
                 const articleCard = createArticleCard(article);
                 articleGrid.appendChild(articleCard);
             });
