@@ -1,7 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch the JSON file containing articles
-    fetch("articles.json")
     fetch("https://davro.github.io/data/site.json")
         .then(response => response.json())
         .then(data => {
@@ -60,11 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const card = document.createElement("div");
         card.className = "col";
 
-        //<h5 class="card-title">${article.title}</h5>
         //<p class="card-text">${article.content}</p>
         card.innerHTML = `
             <div class="card">
             <div class="card-body">
+            <h5 class="card-title">${article.title}</h5>
             <a href="${article.url}"><img src="${article.image}" /></a>
             </div>
             </div>
