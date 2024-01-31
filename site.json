@@ -19,7 +19,7 @@
         ]
     },
     "articles": [
-        {"date": "2024-01-11 14:35:21", "title": "Zig and WebAssembly for Browser Applications: A Powerful Duo", "url": "zig-and-webassembly-for-browser-applications-a-powerful-duo", "image": "",},
+        {"date": "2024-01-11 14:35:21", "title": "Zig and WebAssembly for Browser Applications: A Powerful Duo", "url": "zig-and-webassembly-for-browser-applications-a-powerful-duo", "image": "zig-and-webassembly"},
         {"date": "2023-11-17 23:17:43", "title": "B-Trees: A Guide with Code and Examples", "url": "b-trees-a-guide-with-code-and-examples", "image": "b-trees"},
         {"date": "2023-11-17 13:44:06", "title": "Bloom Filters: A Practical Guide with Code and Examples", "url": "bloom-filters-a-practical-guide-with-code-and-examples", "image": "bloom-filter"},
         {"date": "2023-10-01 17:31:42", "title": "Scientific Computations with CUDA: A Guide to Matrix Multiplication", "url": "scientific-computations-with-cuda-a-guide-to-matrix-multiplication", "image": "matrixmultiplication"},
