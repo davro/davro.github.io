@@ -56,7 +56,7 @@
         {"title": "An Introduction to Deep Learning: Unleashing the Power of Neural Networks"},
         {"title": "Unraveling the Powerhouses of Natural Language Processing: Recurrent Neural Networks, Transformers, and Attention"},
         {"title": "Hugging Face launches open-source version of ChatGPT"},
-        {"title": "Exploring the Frontier of Quantum Programming: The Deutsch-Jozsa Algorithm"},
+        {"date":"2023/06", "title": "Exploring the Frontier of Quantum Programming: The Deutsch-Jozsa Algorithm", "url":"exploring-the-frontier-of-quantum-programming-the-deutsch-jozsa-algorithm/", "image":"Deutsch-Jozsa-algorithm"},
         {"date":"2023/06", "title": "The Rise of Deep Tech: Transforming Industries and Shaping the Future", "url":"the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html", "image":"DeepTech"}
     ]
 }}
