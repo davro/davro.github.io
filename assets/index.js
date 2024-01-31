@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Populate the articles grid
                 currentArticles.forEach(article => {
+                    console.log(article);
                     const articleCard = createArticleCard(article);
                     articleGrid.appendChild(articleCard);
                 });
