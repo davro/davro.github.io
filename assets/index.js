@@ -62,10 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
         //<p class="card-text">${article.content}</p>
         card.innerHTML = `
             <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">${article.title}</h5>
-            <a href="${article.url}"><img src="${article.image}" /></a>
-            </div>
+              <div class="card-body">
+                <h5 class="card-title">${article.title}</h5>
+                <a href="article/${article.date}/${article.url}"><img src="data/${article.date}/${article.image}-300x157.jpg" /></a>
+                </div>
             </div>
             `;
 
