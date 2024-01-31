@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch the JSON file containing articles
-    fetch("https://davro.github.io/data/site.json")
+    fetch("https://davro.github.io/site.json")
         .then(response => response.json())
         .then(data => {
             // Update the title, keywords, and articles grid with the fetched data
@@ -95,21 +95,23 @@ document.addEventListener("DOMContentLoaded", function () {
         if (article.image) {
             AImgTag = `
                 <div>
-                <img srcset="data/${formattedDate}/${article.image}-150x150.jpg 150w,
-                data/${formattedDate}/${article.image}-300x157.jpg 300w,
-                data/${formattedDate}/${article.image}-768x402.jpg 768w"
+                <img srcset="${formattedDate}/${article.image}-150x150.jpg 150w,
+                ${formattedDate}/${article.image}-300x157.jpg 300w,
+                ${formattedDate}/${article.image}-768x402.jpg 768w"
             sizes="(max-width: 576px) 150px,
                 (max-width: 768px) 300px,
                 768px"
-            src="data/${formattedDate}/${article.image}-300x157.jpg"
+            src="${formattedDate}/${article.image}-300x157.jpg"
             alt="${article.title} Image"
             class="card-img-top"
 
             data-bs-toggle="modal"
             data-bs-target="#articleModal"
-            onclick="loadHTML('/data/articles/${article.url}.html', '${article.title}', 'data/${formattedDate}/${article.image}-768x402.jpg')"
+            onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}-768x402.jpg')"
                 >
-<!--            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal"  onclick="loadHTML('/data/articles/${article.url}.html', '${article.title}')">Open Article</button>-->
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal" onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}.jpg')">Open Article</button>
+            <a href="/${formattedDate}/${article.url}.html" target="_blank" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> PermaLink</a>
+
                 </div>
                 `;
         }

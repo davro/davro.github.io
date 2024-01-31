@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="">
+    <title>B-Trees: A Guide with Code and Examples</title>
+
+    <!-- Bootstrap CSS link -->
+    <link href="/assets/bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+	<div class="col-lg-10 offset-lg-1">
+            <!-- Post Image Responsive/ -->
+            <!-- <img src="/2023/11/-768x402.jpg" class="img-fluid" alt="">-->
+            <img src="/2023/11/.jpg" class="img-fluid" alt="">
+
+            <!-- Post Title -->
+	    <h1>B-Trees: A Guide with Code and Examples</h1>
+
+            <!-- Post Content -->
+	    <!-- wp:heading -->
+<h2 class="wp-block-heading">Introduction</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>B-Trees, short for Balanced Trees, are fundamental data structures widely used in computer science, particularly in scenarios where efficient disk-based storage is crucial. In this article, we'll delve into the fundamentals of B-Trees, explore their properties, and provide code examples in Python, along with visual representations.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What is a B-Tree?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A B-Tree is a self-balancing tree data structure designed to maintain sorted data efficiently. Its balanced structure ensures that all leaf nodes are at the same level, contributing to quick search, insertion, and deletion operations. Unlike binary trees, B-Trees have multiple keys per node, making them more versatile and efficient, especially in scenarios involving disk-based storage systems.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Properties of B-Trees</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list {"ordered":true} -->
+<ol><!-- wp:list-item -->
+<li><strong>Balanced Structure:</strong> B-Trees maintain a balanced structure through rotations and redistributions of keys during insertions and deletions.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Degree:</strong> The degree of a B-Tree, denoted as 't,' is the minimum number of keys a non-root internal node can have.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Sorted Keys:</strong> Each node in a B-Tree contains keys in sorted order, facilitating efficient search operations.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Efficient for Disk-Based Storage:</strong> B-Trees are well-suited for systems where data is stored on disk, minimizing disk I/O operations.</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">B-Tree Structure</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A B-Tree node typically consists of keys and child pointers. Keys are sorted, and child pointers facilitate navigation within the tree. Leaf nodes contain the actual data or references to data.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">B-Tree Operations</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Searching</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Searching in a B-Tree involves following child pointers until the desired key is found or reaching a leaf node.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Insertion</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Inserting a key into a B-Tree requires finding the appropriate leaf node and inserting the key while maintaining sorted order. If a node exceeds its maximum allowed keys, a split operation is performed.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Deletion</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Deleting a key from a B-Tree involves finding the key, removing it, and adjusting the tree to maintain balance. If a deletion causes a node to have fewer keys than allowed, a merge operation may be necessary.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Code Example</h2>
+<!-- /wp:heading -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>import graphviz
+
+class BTreeNode:
+    def __init__(self, keys=None, children=None):
+        self.keys = keys or []
+        self.children = children or []
+
+class BTree:
+    def __init__(self):
+        self.root = BTreeNode()
+        self.graph = graphviz.Digraph(comment='B-Tree')
+
+    def visualize(self, node=None):
+        if node is None:
+            node = self.root
+
+        # Visualize the current node with keys
+        key_str = ', '.join(map(str, node.keys))
+        self.graph.node(str(id(node)), label=f'[{key_str}]')
+
+        if node.children:
+            # Recursively visualize child nodes
+            for child in node.children:
+                self.visualize(child)
+
+                # Visualize the edge between the current node and its child
+                self.graph.edge(str(id(node)), str(id(child)))
+
+# Example Usage
+b_tree = BTree()
+
+# Creating a more complex B-tree structure
+root = BTreeNode(keys=[10, 30, 50], children=[
+    BTreeNode(keys=[5, 8]),
+    BTreeNode(keys=[20, 25]),
+    BTreeNode(keys=[40, 45, 48]),
+    BTreeNode(keys=[60, 70])
+])
+
+b_tree.root = root
+
+# Visualize the B-tree
+b_tree.visualize()
+b_tree.graph.render(filename='b_tree_visualization_complex', format='png', cleanup=True)
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>This example creates a B-tree with a more complex structure and visualises it using the <code>graphviz</code> library. The generated image (<code>b_tree_visualization_complex.png</code>) displays the hierarchy and keys of each node.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":269,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="/2023/11/b_tree_visualization_complex.png" alt="" class="img-fluid"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Conclusion</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>B-Trees are powerful data structures with a wide range of applications, particularly in scenarios involving large datasets and disk-based storage systems. Understanding their properties and operations is essential for optimizing search and manipulation of sorted data. The provided code example and visualization should serve as a foundation for exploring and implementing B-Trees in your projects.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/bootstrap/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+<script src="/assets/index.js"></script>
+
+</body>
+</html>

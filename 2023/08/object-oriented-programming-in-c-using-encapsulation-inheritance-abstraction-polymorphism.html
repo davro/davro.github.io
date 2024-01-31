@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="">
+    <title>Object-Oriented Programming in C++ using Encapsulation, Inheritance, Abstraction, Polymorphism.</title>
+
+    <!-- Bootstrap CSS link -->
+    <link href="/assets/bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+	<div class="col-lg-10 offset-lg-1">
+            <!-- Post Image Responsive/ -->
+            <!-- <img src="/2023/08/C-oop-768x402.jpg" class="img-fluid" alt="C-oop">-->
+            <img src="/2023/08/C-oop.jpg" class="img-fluid" alt="C-oop">
+
+            <!-- Post Title -->
+	    <h1>Object-Oriented Programming in C++ using Encapsulation, Inheritance, Abstraction, Polymorphism.</h1>
+
+            <!-- Post Content -->
+	    <!-- wp:paragraph -->
+<p>Object-oriented programming (OOP) is a programming paradigm that empowers developers to create efficient, organised, and easily maintainable code. C++ is renowned for its robust support of OOP concepts, making it an ideal language for building diverse applications. In this article, we'll embark on a journey through the key OOP principles—Encapsulation, Inheritance, Abstraction, and Polymorphism—by delving into code examples that showcase the power and flexibility of C++.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Encapsulation: Securing Data and Behaviour</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Encapsulation is the practice of encapsulating data (attributes) and behavior (methods) within a single entity, known as a class. This shields the internal details from outside access, promoting data integrity and modularity. Let's see how this works with an example:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>#include &lt;iostream>
+
+class Student {
+public:
+    Student(const std::string&amp; name, int age) : name(name), age(age) {}
+
+    void introduce() {
+        std::cout &lt;&lt; "Hi, I'm " &lt;&lt; name &lt;&lt; " and I'm " &lt;&lt; age &lt;&lt; " years old." &lt;&lt; std::endl;
+    }
+
+private:
+    std::string name;
+    int age;
+};
+
+int main() {
+    Student student("Alice", 20);
+    student.introduce();
+    return 0;
+}
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>In this code, the <code>Student</code> class encapsulates the student's name and age, exposing the <code>introduce()</code> method to interact with the encapsulated data.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Inheritance: Building on Existing Foundations</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Inheritance is a cornerstone of OOP, allowing the creation of new classes (derived or child classes) that inherit properties and behaviors from existing classes (base or parent classes). This promotes code reuse and extensibility. Let's examine inheritance in action:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>#include &lt;iostream>
+
+class Animal {
+public:
+    Animal(const std::string&amp; name) : name(name) {}
+
+    void speak() const {
+        std::cout &lt;&lt; name &lt;&lt; " makes a sound." &lt;&lt; std::endl;
+    }
+
+private:
+    std::string name;
+};
+
+class Dog : public Animal {
+public:
+    Dog(const std::string&amp; name) : Animal(name) {}
+
+    void speak() const {
+        std::cout &lt;&lt; "Woof Woof!" &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    Dog dog("Buddy");
+    dog.speak();
+    return 0;
+}
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>Here, the <code>Dog</code> class inherits from the <code>Animal</code> class, extending its behavior by overriding the <code>speak()</code> method.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Abstraction: Focusing on Essentials</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Abstraction involves modeling classes by capturing essential attributes and behaviors while hiding intricate details. This simplifies complex systems and enhances code clarity. Let's observe abstraction in action:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>#include &lt;iostream>
+
+class Shape {
+public:
+    virtual double calculateArea() const = 0;
+};
+
+class Circle : public Shape {
+public:
+    Circle(double radius) : radius(radius) {}
+
+    double calculateArea() const override {
+        return 3.14 * radius * radius;
+    }
+
+private:
+    double radius;
+};
+
+int main() {
+    Circle circle(5);
+    std::cout &lt;&lt; "Area of circle: " &lt;&lt; circle.calculateArea() &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>In this code, the <code>Shape</code> class abstracts the concept of a shape and its area calculation, while the <code>Circle</code> class implements the concrete functionality.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Polymorphism: Flexibility through Interfaces</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Polymorphism allows objects of different classes to be treated as objects of a common base class. This facilitates writing flexible and reusable code. Let's explore polymorphism in practice:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>#include &lt;iostream>
+#include &lt;vector>
+
+class Shape {
+public:
+    virtual double calculateArea() const = 0;
+};
+
+class Circle : public Shape {
+public:
+    Circle(double radius) : radius(radius) {}
+
+    double calculateArea() const override {
+        return 3.14 * radius * radius;
+    }
+
+private:
+    double radius;
+};
+
+class Rectangle : public Shape {
+public:
+    Rectangle(double width, double height) : width(width), height(height) {}
+
+    double calculateArea() const override {
+        return width * height;
+    }
+
+private:
+    double width, height;
+};
+
+int main() {
+    std::vector&lt;Shape*> shapes;
+    shapes.push_back(new Circle(5));
+    shapes.push_back(new Rectangle(4, 6));
+
+    for (const auto shape : shapes) {
+        std::cout &lt;&lt; "Area: " &lt;&lt; shape->calculateArea() &lt;&lt; std::endl;
+    }
+
+    // Clean up memory
+    for (const auto shape : shapes) {
+        delete shape;
+    }
+
+    return 0;
+}
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>Here, polymorphism allows us to treat both <code>Circle</code> and <code>Rectangle</code> objects as <code>Shape</code> objects, facilitating a unified approach to calculating areas.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Conclusion</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Object-oriented programming empowers developers to build complex and maintainable systems by utilizing principles such as Encapsulation, Inheritance, Abstraction, and Polymorphism. These concepts foster modularity, reusability, and code organization, making C++ a versatile and powerful language for a wide range of applications. By mastering these principles and applying them judiciously, developers can unlock the full potential of C++ and create software that is both elegant and efficient.</p>
+<!-- /wp:paragraph -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/bootstrap/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+<script src="/assets/index.js"></script>
+
+</body>
+</html>

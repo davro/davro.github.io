@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="">
+    <title>Git Stash: A Comprehensive Guide</title>
+
+    <!-- Bootstrap CSS link -->
+    <link href="/assets/bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+	<div class="col-lg-10 offset-lg-1">
+            <!-- Post Image Responsive/ -->
+            <!-- <img src="/2023/09/git-stash-768x402.jpg" class="img-fluid" alt="git-stash">-->
+            <img src="/2023/09/git-stash.jpg" class="img-fluid" alt="git-stash">
+
+            <!-- Post Title -->
+	    <h1>Git Stash: A Comprehensive Guide</h1>
+
+            <!-- Post Content -->
+	    <!-- wp:paragraph -->
+<p>Git is a powerful version control system that allows developers to track changes in their codebase and collaborate efficiently. One of the most useful and often underutilised features of Git is the "stash" command. Git stash is a versatile tool that allows you to temporarily save changes that are not ready to be committed, switch branches, and manage your work more effectively. In this comprehensive guide, we will explore Git stash in depth, covering its various use cases, commands, best practices, and some advanced techniques.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Understanding the Need for Git Stash</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Before diving into the intricacies of Git stash, let's understand why it's a crucial tool for developers.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol><!-- wp:list-item -->
+<li><strong>Temporary Storage</strong>: Git stash provides a safe and efficient way to store changes that are not yet ready to be committed but need to be set aside temporarily. This is especially helpful when you need to switch to a different branch or address an urgent bug fix without losing your current work.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Maintaining a Clean Working Directory</strong>: Stashing helps you maintain a clean working directory, reducing the risk of accidentally committing incomplete or experimental changes.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Conflict Resolution</strong>: When you encounter merge conflicts while switching branches, stashing can help you resolve conflicts more easily by allowing you to switch branches cleanly and then apply your stashed changes back.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Experimentation</strong>: You can use Git stash to experiment with different code changes without affecting your current working state. If an experiment doesn't work out, you can simply drop the stash without committing it.</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Now that we understand why Git stash is essential, let's delve into the various aspects of using it effectively.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Basic Git Stash Commands</h3>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Stashing Changes</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The most fundamental command for using Git stash is <code>git stash save</code> or simply <code>git stash</code>. Here's how it works:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash save "Descriptive stash message"</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>This command will stash your current changes, providing a descriptive message to help you identify the stash's purpose later.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Viewing Stashes</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To view your stashes, use the following command:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash list</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>This command displays a list of all stashes, including their stash IDs and messages.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Applying Stashed Changes</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To apply the latest stash (usually the one on top of the stash stack) and remove it from the stash stack, use the following command:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted">bashCopy code<code>git stash pop
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>Alternatively, if you want to apply a specific stash, you can use:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash apply stash@{n}</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>Where <code>n</code> is the stash index you want to apply.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Dropping Stashes</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To remove a stash from the stash stack without applying it, use the following command:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash drop stash@{n}</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Clearing All Stashes</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>If you want to remove all stashes, you can use:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash clear</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Advanced Stash Techniques</h3>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Stashing Untracked Files</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>By default, Git stash only saves changes to tracked files. If you want to stash untracked files as well, you can use the <code>-u</code> or <code>--include-untracked</code> option:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash save -u "Stash untracked files"</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Stashing with a Stash Message</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Adding a meaningful message when stashing is crucial for identifying the purpose of a stash later. This can be incredibly helpful in a team setting or when you have many stashes. The stash message should be enclosed in double quotes after the <code>git stash save</code> command.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Stashing Interactively</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Git provides an interactive mode for stashing, which allows you to choose exactly what you want to stash and what you want to keep in your working directory. To access this mode, use the following command:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash save -p</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>This command will present each change (hunk) individually and prompt you to decide whether to stash it or not.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Multiple Stashes</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>You can create multiple stashes by repeatedly running <code>git stash save</code> with different messages. This allows you to manage and prioritize different sets of changes separately.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Stash Branches</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Sometimes, you might want to work on a specific stash in isolation. You can create a new branch from a stash using the following command:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>git stash branch &lt;branch_name> stash@{n}</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>This command creates a new branch <code>&lt;branch_name&gt;</code> and applies the stash <code>stash@{n}</code> to it. It's a useful technique for isolating and working on specific features or bug fixes.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Best Practices</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To make the most of Git stash, consider these best practices:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol><!-- wp:list-item -->
+<li><strong>Use Descriptive Stash Messages</strong>: Always provide a meaningful message when stashing your changes. This helps you remember why you stashed the changes and makes it easier to identify the correct stash to apply later.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Stash Frequently</strong>: Stash changes frequently, especially before switching branches or pulling updates from a remote repository. This ensures a clean working directory and reduces the chances of conflicts.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Regularly Check and Manage Stashes</strong>: Periodically review your stashes using <code>git stash list</code> to keep track of your stashed changes. Remove stashes that are no longer needed to avoid clutter.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Combine Stashes</strong>: If you have multiple stashes that are related to the same feature or bug fix, consider combining them into a single stash with a clear message. This simplifies the management of stashes.</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Conclusion</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Git stash is an invaluable tool in a developer's arsenal. It enables you to manage your work effectively, switch between tasks seamlessly, and experiment with code changes without the risk of losing your work. By understanding the basic stash commands, exploring advanced techniques, and following best practices, you can become a master of Git stash and streamline your development workflow. Incorporate Git stash into your daily Git routine, and you'll find it to be a reliable companion in your coding journey.</p>
+<!-- /wp:paragraph -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/bootstrap/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+<script src="/assets/index.js"></script>
+
+</body>
+</html>
