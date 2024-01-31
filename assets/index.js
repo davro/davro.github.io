@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch the JSON file containing articles
     fetch("https://davro.github.io/data/site.json")
@@ -90,9 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if article.image is provided
         // <a href="data/${article.url}.html">
+        // hx-get="http://localhost:8000/data/the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html" hx-target="#article"
+        //<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadHTML('yourfile.html')">Open Modal</button>
+        //onclick="loadHTML('/data/articles/${article.url}.html')"
         if (article.image) {
             AImgTag = `
-                <div hx-get="https://davro.github.io/data/the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html" hx-target="#article-grid">
+                <div>
                 <img srcset="data/${formattedDate}/${article.image}-150x150.jpg 150w,
                 data/${formattedDate}/${article.image}-300x157.jpg 300w,
                 data/${formattedDate}/${article.image}-768x402.jpg 768w"
@@ -101,7 +103,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 768px"
             src="data/${formattedDate}/${article.image}-300x157.jpg"
             alt="${article.title} Image"
-            class="card-img-top">
+            class="card-img-top"
+
+            data-bs-toggle="modal"
+            data-bs-target="#articleModal"
+            onclick="loadHTML('/data/articles/${article.url}.html', '${article.title}', 'data/${formattedDate}/${article.image}-768x402.jpg')"
+                >
+<!--            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal"  onclick="loadHTML('/data/articles/${article.url}.html', '${article.title}')">Open Article</button>-->
                 </div>
                 `;
         }
@@ -119,4 +127,30 @@ document.addEventListener("DOMContentLoaded", function () {
         return card;
     }
 
+
 });
+
+
+function loadHTML(htmlFilePath, articleModalTitle, articleModalImage) {
+    // Fetch HTML content
+    fetch(htmlFilePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(htmlContent => {
+
+            // Update the 'article' title and div in the modal
+            document.getElementById('articleModalImage').src = articleModalImage;
+            document.getElementById('articleModalTitle').innerHTML = articleModalTitle;
+            document.getElementById('article').innerHTML = htmlContent;
+
+            // Show the modal
+//            new bootstrap.Modal(document.getElementById('articleModal')).show();
+        })
+        .catch(error => {
+            console.error('Error fetching the HTML file:', error);
+        });
+}
