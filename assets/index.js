@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // <a href="data/${article.url}.html">
         if (article.image) {
             AImgTag = `
-                <div hx-get="/data/the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html" hx-target="#article-grid">
+                <div hx-get="https://davro.github.io/data/the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html" hx-target="#article-grid">
                 <img srcset="data/${formattedDate}/${article.image}-150x150.jpg 150w,
                 data/${formattedDate}/${article.image}-300x157.jpg 300w,
                 data/${formattedDate}/${article.image}-768x402.jpg 768w"
