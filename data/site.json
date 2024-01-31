@@ -54,7 +54,7 @@
         {"title": "Unleashing Creativity: Exploring Deep Generative Modelling", "url":"", "image":""},
         {"title": "Convolutional Neural Networks: Revolutionizing Computer Vision", "url":"", "image":""},
         {"title": "An Introduction to Deep Learning: Unleashing the Power of Neural Networks", "url":"", "image":""},
-        {"title": "Unraveling the Powerhouses of Natural Language Processing: Recurrent Neural Networks, Transformers, and Attention", "url":"", "image":""},
+        {"date":"2023/06", "title": "Unraveling the Powerhouses of Natural Language Processing: Recurrent Neural Networks, Transformers, and Attention", "url":"unraveling-the-powerhouses-of-natural-language-processing-recurrent-neural-networks-transformers-and-attention", "image":"RecurrentNeuralNetworks"},
         {"date":"2023/06", "title": "Hugging Face launches open-source version of ChatGPT", "url":"hugging-face-launches-open-source-version-of-chatgpt", "image":"hugging-face"},
         {"date":"2023/06", "title": "Exploring the Frontier of Quantum Programming: The Deutsch-Jozsa Algorithm", "url":"exploring-the-frontier-of-quantum-programming-the-deutsch-jozsa-algorithm/", "image":"DeutschJozsaAlgorithm"},
         {"date":"2023/06", "title": "The Rise of Deep Tech: Transforming Industries and Shaping the Future", "url":"the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html", "image":"DeepTech"}
