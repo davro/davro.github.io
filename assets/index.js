@@ -79,17 +79,53 @@ document.addEventListener("DOMContentLoaded", function () {
     //   -300x157.jpg
     //   -768x402.jpg
     //
-    function createArticleCard(article) {
+    function createArticleCardTEST(article) {
         const card = document.createElement("div");
         card.className = "col-md-4"; // Set the column size for medium devices (desktop)
         card.innerHTML = `
             <div class="card">
-            <a href="article/${article.date}/${article.url}">
+            <a href="article/${article.url}">
             <img srcset="data/${article.date}/${article.image}-150x150.jpg 150w, data/${article.date}/${article.image}-300x157.jpg 300w, data/${article.date}/${article.image}-768x402.jpg 768w"
                  sizes="(max-width: 576px) 150px, (max-width: 768px) 300px, 768px"
                  src="data/${article.date}/${article.image}-300x157.jpg"
                  alt="${article.title} Image"
                  class="card-img-top" />
+            </a>
+            <div class="card-body">
+            <h5 class="card-title">${article.title}</h5>
+            </div>
+            </div>
+            `;
+        return card;
+    }
+
+
+    // Function to format the date string
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        return `${year}/${month}`;
+    }
+
+    // Function to create an article card
+    function createArticleCard(article) {
+        const formattedDate = formatDate(article.date);
+
+        const card = document.createElement("div");
+        card.className = "col-md-4"; // Set the column size for medium devices (desktop)
+        card.innerHTML = `
+            <div class="card">
+            <a href="article/${formattedDate}/${article.url}"> <!-- Replace ${article.date} with formattedDate -->
+            <img srcset="data/${article.date}/${article.image}-150x150.jpg 150w,
+            data/${article.date}/${article.image}-300x157.jpg 300w,
+            data/${article.date}/${article.image}-768x402.jpg 768w"
+        sizes="(max-width: 576px) 150px,
+            (max-width: 768px) 300px,
+            768px"
+        src="data/${article.date}/${article.image}-300x157.jpg"
+        alt="${article.title} Image"
+        class="card-img-top">
             </a>
             <div class="card-body">
             <h5 class="card-title">${article.title}</h5>
