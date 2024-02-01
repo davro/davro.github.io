@@ -123,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
             ${AImgTag}
             <div class="card-body">
             <h5 class="card-title">${article.title}</h5>
+            <p>${article.date} | ${formattedDate}</p>
+            <p>${article.image}</p>
             </div>
             </div>
             `;
