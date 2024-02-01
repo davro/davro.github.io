@@ -1,3 +1,9 @@
+//
+// Localhost command
+//
+// python3 -m http.server
+//
+
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch the JSON file containing articles
     fetch("https://davro.github.io/site.json")
