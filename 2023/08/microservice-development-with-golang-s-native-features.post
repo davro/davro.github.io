@@ -1,0 +1,131 @@
+<!-- Post Year -->
+2023
+
+<!-- Post Month -->
+08
+
+<!-- Post Day -->
+11
+
+<!-- Post Image -->
+golang-template
+
+<!-- Post Slug -->
+microservice-development-with-golang-s-native-features
+
+
+<!-- Post Title -->
+Microservice Development with GoLang's Native Features
+
+<!-- Post Content -->
+<!-- wp:paragraph -->
+<p>Microservices architecture has transformed how we build modern applications, and the Go programming language (GoLang) offers a powerful toolset for developing microservices. In this article, we'll dive deep into microservices development using only GoLang's native features. We'll explore how to effectively manage multiple URL routes with distinct functions, employ a single shared HTML template for consistent layout, and dynamically populate the template with multiple variables and placeholders.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Leveraging GoLang's Native Strengths in Microservices</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>GoLang's simplicity, performance, and built-in concurrency make it a perfect fit for microservices development. By harnessing its native features, we can create efficient, modular, and easily maintainable microservices that align with the principles of microservices architecture.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Developing Microservices with Multiple URL Routes and Shared HTML Template</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We'll walk through an example microservice that handles multiple URL routes using distinct functions. Additionally, we'll utilise a single shared HTML template for maintaining a consistent layout across different routes while dynamically injecting variables and placeholders.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Service Initialization and Routing:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Let's start by creating a microservice that handles multiple URL routes with distinct functions. We'll utilise GoLang's <code>http</code> package for this purpose.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>package main
+
+import (
+    "fmt"
+    "html/template"
+    "net/http"
+)
+
+var templates *template.Template
+
+func main() {
+    templates = template.Must(template.ParseFiles("templates/layout.html"))
+
+    http.HandleFunc("/home", homeHandler)
+    http.HandleFunc("/about", aboutHandler)
+    http.HandleFunc("/contact", contactHandler)
+
+    http.ListenAndServe(":8080", nil)
+}
+
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+    renderTemplate(w, "Home", "Welcome to the Home Page!", "Additional content for the home page.")
+}
+
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+    renderTemplate(w, "About Us", "Learn more About Us!", "Additional content for the about page.")
+}
+
+func contactHandler(w http.ResponseWriter, r *http.Request) {
+    renderTemplate(w, "Contact Us", "Get in touch via the Contact Page!", "Additional content for the contact page.")
+}
+
+func renderTemplate(w http.ResponseWriter, pageTitle, message, content string) {
+    data := struct {
+        Title   string
+        Message string
+        Content string
+    }{
+        Title:   pageTitle,
+        Message: message,
+        Content: content,
+    }
+
+    err := templates.Execute(w, data)
+    if err != nil {
+        http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+    }
+}</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p><strong>Shared HTML Template with Dynamic Data:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We'll create a shared HTML template that provides a consistent layout across different routes. This template will be populated with dynamic data using placeholders.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>&lt;!-- templates/layout.html -->
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+    &lt;title>{{.Title}}&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;h1>{{.Message}}&lt;/h1>
+    &lt;div>
+        {{.Content}}
+    &lt;/div>
+&lt;/body>
+&lt;/html></code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p><strong>Conclusion</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Developing microservices with GoLang's native features, as illustrated in this article, demonstrates how to build powerful and maintainable applications. By managing multiple URL routes, employing a shared HTML template, and dynamically populating it with variables, we've showcased the potential of combining GoLang's features with microservices architecture. The simplicity, efficiency, and dynamic templating capabilities of GoLang allow us to create microservices that are both modular and user-friendly. As you continue your journey in microservices development, remember that GoLang empowers you to create applications that align seamlessly with the principles of microservices, offering scalability, efficiency, and maintainability on the Davro Network platform.</p>
+<!-- /wp:paragraph -->
+
