@@ -6,7 +6,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch the JSON file containing articles
-    fetch("https://davro.github.io/site.json")
+    //fetch("https://davro.github.io/site.json")
+    fetch("/site.json")
         .then(response => response.json())
         .then(data => {
             // Update the title, keywords, and articles grid with the fetched data
