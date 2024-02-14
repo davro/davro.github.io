@@ -16,7 +16,7 @@
 	<div class="col-lg-10 offset-lg-1">
             <!-- Post Image Responsive/ -->
             <!-- <img src="/2024/01/-768x402.jpg" class="img-fluid" alt="">-->
-            <img src="/2024/01/.jpg" class="img-fluid" alt="">
+            <img src="/2024/01/zig-and-webassembly.jpg" class="img-fluid" alt="">
 
             <!-- Post Title -->
 	    <h1>Zig and WebAssembly for Browser Applications: A Powerful Duo</h1>
@@ -127,7 +127,7 @@ pub fn main() void {
     const response = await fetch('hello.wasm');
     const bytes = await response.arrayBuffer();
     const { instance } = await WebAssembly.instantiate(bytes);
-    
+
     instance.exports.main();
 })();</code></pre>
 <!-- /wp:preformatted -->
