@@ -42,6 +42,7 @@ function createArticleCard(article) {
     //<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadHTML('yourfile.html')">Open Modal</button>
         //onclick="loadHTML('/data/articles/${article.url}.html')"
     if (article.image) {
+	/*
         AImgTag = `
             <div>
             <img srcset="${formattedDate}/${article.image}-150x150.jpg 150w,
@@ -57,6 +58,24 @@ function createArticleCard(article) {
         data-bs-toggle="modal"
         data-bs-target="#articleModal"
         onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}-768x402.jpg')"
+            >
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal" onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}.jpg')">Open Article</button>
+            <a href="/${formattedDate}/${article.url}.html" target="_blank" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> PermaLink</a>
+
+            </div>
+            `;
+//*/
+
+	// Simplified version without the srcset.
+        AImgTag = `
+            <div>
+            <img 
+	        src="${formattedDate}/${article.image}.jpg"
+		alt="${article.title} Image"
+	        class="card-img-top"
+		data-bs-toggle="modal"
+	        data-bs-target="#articleModal"
+		onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}-768x402.jpg')"
             >
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal" onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}.jpg')">Open Article</button>
             <a href="/${formattedDate}/${article.url}.html" target="_blank" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> PermaLink</a>
