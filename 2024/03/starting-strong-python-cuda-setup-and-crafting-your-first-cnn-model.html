@@ -280,7 +280,7 @@ Accuracy of the network on the 10000 test images: 38 %
 <p>This code below will perform a grid search over the specified learning rates and momentums</p>
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>
+<pre class="wp-block-preformatted"><code>python3 ml_complex_cnn_CIFAR_10_hyperparameter_grid_search.py
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -460,7 +460,7 @@ print("Best Accuracy:", best_accuracy)
 
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>
+<pre class="wp-block-preformatted"><code>python3 ml_complex_cnn_CIFAR_10_hyperparameter_grid_search.py
 Finished Training
 Training Time: 135.65481781959534
 Accuracy of the network on the 10000 test images: 10.00 %
@@ -484,7 +484,7 @@ In each iteration (or mini-batch), SGD computes the gradient of the loss functio
 <p>Below we apply these tuned hyperparameters that resulted in the highest accuracy on the test set during the grid search.</p>
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>
+<pre class="wp-block-preformatted"><code>python3 ml_complex_cnn_CIFAR_10_hyperparameter_best.py
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -611,7 +611,7 @@ torch.save(net.state_dict(), 'ml-complex-cnn-CIFAR-10-trained_model.pth')
 <!-- /wp:preformatted -->
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>
+<pre class="wp-block-preformatted"><code>python3 ml_complex_cnn_CIFAR_10_hyperparameter_best.py
 [90,   100] loss: 0.057
 [90,   200] loss: 0.048
 [90,   300] loss: 0.049
@@ -704,7 +704,9 @@ For example, a high accuracy score suggests that the model performs well overall
 
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>import torch
+<pre class="wp-block-preformatted"><code>python3 evaluate_model_f1_score.py 
+
+import torch
 from ml_complex_cnn_CIFAR_10_hyperparameter_best import Net  # Assuming Net is the class defining your CNN model
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
@@ -782,7 +784,9 @@ This ensures consistency and allows you to assess the performance of the trained
 <p>Results of the model evaluation</p>
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>[97,   200] loss: 0.050
+<pre class="wp-block-preformatted"><code>python3 evaluate_model_f1_score.py
+
+[97,   200] loss: 0.050
 [97,   300] loss: 0.047
 [98,   100] loss: 0.042
 [98,   200] loss: 0.039
