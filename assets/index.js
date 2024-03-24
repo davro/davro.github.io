@@ -69,7 +69,7 @@ function createArticleCard(article) {
 	// Simplified version without the srcset.
         AImgTag = `
             <div>
-            <img 
+            <img
 	        src="${formattedDate}/${article.image}.jpg"
 		alt="${article.title} Image"
 	        class="card-img-top"
@@ -248,11 +248,38 @@ function handleHashChange() {
                 articleGrid.innerHTML = "BOOKS Coming soon!";
 //                console.log("Books hash detected");
                 break;
-            case '#coding':
+
+            // Section Economics
+            case '#economics':
                 // Handle coding hash
-                articleGrid.innerHTML = "CODING Coming soon!";
-//                console.log("Coding hash detected");
+                articleGrid.innerHTML = "ECONOMICS Coming soon!";
+
+                // Modify the class
+                articleGrid.classList.remove('row-cols-md-3');
+                articleGrid.classList.add('row-cols-1');
+
+                // Fetch the HTML file
+                fetch('/economics/model.html')
+                  .then(response => {
+                    // Check if the response is successful
+                    if (!response.ok) {
+                      throw new Error('Failed to fetch HTML file');
+                    }
+                    // Return the HTML content
+                    return response.text();
+                  })
+                  .then(htmlContent => {
+                    // Render the fetched HTML content into the articleGrid element
+                    articleGrid.innerHTML = htmlContent;
+                  })
+                  .catch(error => {
+                    // Handle any errors that occur during the fetch
+                    console.error('Error fetching HTML file:', error);
+                  });
+
                 break;
+
+            // Section Crypto
             case '#crypto':
                 // Handle coding hash
                 //

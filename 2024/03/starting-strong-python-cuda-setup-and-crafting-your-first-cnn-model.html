@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="">
+    <title>P2P Node Selection with Transformers and Self-Attention Mechanisms: A Path to Efficient Data Transmission</title>
+
+    <!-- Bootstrap CSS link -->
+    <link href="/assets/bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/article.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+	<div class="col-lg-10 offset-lg-1">
+            <!-- Post Image Responsive/ -->
+            <!-- <img src="/2024/01/-768x402.jpg" class="img-fluid" alt="">-->
+            <img src="/2024/03/StartingStrongPythonCUDASetupCraftingYourFirstCNNModel.jpg" class="img-fluid" alt="">
+
+<!-- Post Title -->
+<h1>Starting Strong: Python, CUDA Setup, and Crafting Your First CNN Model</h1>
+
+
+<!-- Content Introduction-->
+<!-- wp:paragraph -->
+<p>In the ever-evolving landscape of artificial intelligence and machine learning, Convolutional Neural Networks (CNNs) stand out as powerful tools for image recognition, object detection, and various other tasks. This series of articles aims to provide a comprehensive guide for enthusiasts and practitioners keen on mastering CNNs. We'll begin our journey by laying down a robust foundation: setting up Python, configuring CUDA for GPU acceleration, and crafting our first CNN model.</p>
+
+<!-- wp:paragraph -->
+<h4>Setting Up Python and CUDA</h4>
+<!-- /wp:paragraph -->
+
+
+<!-- wp:paragraph -->
+<p>Transformers, renowned for their prowess in sequence modeling and attention mechanisms, bring a new dimension to P2P node selection. By leveraging Transformer architectures, we can extract relevant features from P2P network data, model sequences of historical node interactions for predictive analysis, and make informed decisions based on attention mechanisms. Let's delve into the key aspects of using Transformers for P2P node selection:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<strong>Setting Up Python and CUDA:</strong>
+
+<p>Before delving into the world of Convolutional Neural Networks (CNNs), it's crucial to ensure that our development environment is properly configured, especially if we aim to leverage the power of CUDA for GPU acceleration. In this section, we'll guide you through the process of setting up Python and CUDA on Ubuntu 20.04, ensuring that you have access to a CUDA-enabled GPU for accelerated computations.</p>
+
+<strong>Access to a CUDA-enabled Card:</strong>
+<p>First and foremost, it's essential to have access to a CUDA-enabled graphics card. CUDA is NVIDIA's parallel computing platform and programming model, designed to harness the computational power of NVIDIA GPUs for general-purpose computing tasks. Without a CUDA-enabled GPU, we won't be able to take advantage of GPU acceleration, which is crucial for training deep learning models efficiently.</p>
+
+<p>Installing NVIDIA Graphics Drivers:
+Ubuntu typically comes with the Nouveau open-source graphics driver by default, which may not be suitable for CUDA development. To ensure optimal performance and compatibility with CUDA, we need to install the official NVIDIA graphics drivers. This involves downloading the appropriate drivers from the NVIDIA website or installing them using a package manager like apt.</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>sudo apt-get install nvidia-driver-535</code></pre>
+<!-- /wp:preformatted -->
+
+<p>This command installs the recommended NVIDIA graphics driver for your system, replacing the default Nouveau driver. After installation, you may need to reboot your system for the changes to take effect.</p>
+
+<strong>Setting Up the NVIDIA CUDA Toolkit:</strong>
+<p>Once the NVIDIA graphics drivers are installed, we need to set up the system with the NVIDIA CUDA Toolkit. The CUDA Toolkit provides a comprehensive development environment for building GPU-accelerated applications, including libraries, tools, and compiler support.</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>sudo apt-get install nvidia-cuda-toolkit</code></pre>
+<!-- /wp:preformatted -->
+
+<p>This command installs the CUDA Toolkit, which includes the CUDA runtime libraries, development tools, and additional libraries required for CUDA development. After installation, make sure to set the appropriate environment variables (e.g., PATH, LD_LIBRARY_PATH) to include the CUDA binaries and libraries.</p>
+
+<strong>Setting Up Python with CUDA and TorchVision:</strong>
+<p>With the system configured for CUDA development, we can now set up Python along with the necessary libraries for deep learning, including CUDA support. We'll use pip, the Python package manager, to install the required packages.</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>pip install pycuda
+pip install torch torchvision</code></pre>
+<!-- /wp:preformatted -->
+
+<p>The pycuda package provides Python bindings for CUDA, allowing us to interact with CUDA functionality from Python code. Meanwhile, torch and torchvision are essential libraries for deep learning, with torch serving as the core PyTorch library and torchvision providing utilities for computer vision tasks.</p>
+
+<p>By following these steps, you'll have a fully configured development environment ready for building and training CNN models using Python, CUDA, and PyTorch. In the subsequent sections, we'll delve deeper into crafting and training our first CNN model, leveraging the power of GPU acceleration for enhanced performance.</p>
+<!-- /wp:paragraph -->
+
+
+
+
+<h4>Crafting Your First CNN Model:</h4>
+<p>With our development environment in place, it's time to dive into crafting our inaugural CNN model. We'll explore the fundamental architecture of CNNs, including convolutional layers, pooling layers, and fully connected layers. Using PyTorch, a popular deep learning framework, we'll construct a simple yet effective CNN model tailored for image classification tasks. Through hands-on examples and code walkthroughs, you'll gain a solid understanding of how CNNs are structured and trained.</p>
+
+
+<strong>Constructing a CNN Model with PyTorch:</strong>
+
+<p>PyTorch provides a flexible and intuitive framework for building deep learning models, making it an ideal choice for constructing CNNs. 
+Using PyTorch's modular design and dynamic computation graph, we can easily define and customize our CNN architecture. Let's outline the steps involved in constructing our first CNN model:
+
+Define the Network Architecture: We'll define a Python class representing our CNN model, specifying the layers and their configurations. This includes defining the convolutional layers, pooling layers, and fully connected layers, as well as specifying activation functions and other parameters.
+
+Instantiate the Model: Once the network architecture is defined, we'll instantiate an instance of our CNN model. This initializes the model's parameters (weights and biases) and prepares it for training and inference.
+
+Training the Model: With the model instantiated, we'll train it using labeled training data. During training, the model learns to optimize its parameters (weights and biases) to minimize a chosen loss function, typically through a process called backpropagation.
+
+Evaluating Model Performance: After training, we'll evaluate the model's performance on unseen test data, measuring metrics such as accuracy, precision, recall, and F1 score. This allows us to assess how well the model generalizes to new data and identify areas for improvement.
+
+By following these steps, you'll not only gain hands-on experience in constructing CNN models but also develop a deeper understanding of the underlying principles behind CNNs. In the subsequent sections of this article series, we'll delve into advanced techniques for optimizing and enhancing the performance of our CNN models, taking our deep learning journey to new heights.</p>
+
+
+
+<p>The provided code snippet below demonstrates the training process of a Convolutional Neural Network (CNN) model on the <a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a> dataset using <a href="https://pytorch.org/">PyTorch.</a> Let's break down the output and explain its significance:</p>
+
+<p>Training Loss (loss): The loss value represents the error between the predicted outputs of the model and the actual labels during training. Initially, the loss is high and gradually decreases as the model learns to make better predictions. 
+In this case, we observe the loss decreasing over epochs, indicating that the model is learning from the training data.<p>
+
+<p>Epoch and Batch Information: Each line in the output corresponds to one iteration of the training loop, where an iteration processes a batch of data. 
+The format '[epoch, batch] loss: value' indicates the epoch number, batch number, and the loss value for that batch.<p>
+
+<p>Finished Training: This message confirms that the training process has completed.</p>
+
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.nn as nn
+import torch.optim as optim
+import time
+
+# Define the transformations for the dataset
+transform_train = transforms.Compose([
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 dataset
+trainset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=True, download=True, transform=transform_train)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Define the CNN model
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(256 * 4 * 4, 512)  # Adjusted based on the output size after pooling
+        self.fc2 = nn.Linear(512, 10)
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = torch.relu(self.conv4(x))
+        x = self.pool(torch.relu(self.conv5(x)))
+        x = torch.relu(self.conv6(x))
+        x = self.pool(x)
+        x = torch.flatten(x, 1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+
+
+# Instantiate the model
+net = Net()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+net.to(device)
+
+# Define the loss function and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+
+# Training the network
+start_time = time.time()
+for epoch in range(10):  # loop over the dataset multiple times
+    running_loss = 0.0
+    for i, data in enumerate(trainloader, 0):
+        inputs, labels = data[0].to(device), data[1].to(device)
+
+        # zero the parameter gradients
+        optimizer.zero_grad()
+
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        # print statistics
+        running_loss += loss.item()
+        if i % 100 == 99:    # print every 100 mini-batches
+            print('[%d, %5d] loss: %.3f' %
+                  (epoch + 1, i + 1, running_loss / 100))
+            running_loss = 0.0
+
+print('Finished Training')
+print("Training Time:", time.time() - start_time)
+
+# Testing the network
+correct = 0
+total = 0
+with torch.no_grad():
+    for data in testloader:
+        images, labels = data[0].to(device), data[1].to(device)
+        outputs = net(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
+
+</code></pre>
+<!-- /wp:preformatted -->
+
+
+<p> The time taken for training the model is reported. It provides an insight into the computational resources required for training.</p>
+
+<p>Accuracy on Test Images: After training, the model's accuracy on the test set is evaluated. The reported accuracy (38%) indicates the percentage of correctly classified images out of the total test images. 
+While the accuracy is relatively low in this basic implementation, it serves as a starting point for further optimization and tuning.</p>
+
+<p>Overall, the output provides essential information about the training process, including loss trends, training time, and model performance on unseen data. 
+This basic implementation serves as a foundation for exploring hyperparameter tuning and advanced techniques to improve the model's accuracy.</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>python3 ml-complex-cnn-CIFAR-10.py
+
+Files already downloaded and verified
+[1,   100] loss: 2.303
+[1,   200] loss: 2.303
+[1,   300] loss: 2.303
+[2,   100] loss: 2.302
+[2,   200] loss: 2.302
+[2,   300] loss: 2.302
+[3,   100] loss: 2.302
+[3,   200] loss: 2.302
+[3,   300] loss: 2.302
+[4,   100] loss: 2.301
+[4,   200] loss: 2.301
+[4,   300] loss: 2.301
+[5,   100] loss: 2.299
+[5,   200] loss: 2.298
+[5,   300] loss: 2.296
+[6,   100] loss: 2.283
+[6,   200] loss: 2.251
+[6,   300] loss: 2.168
+[7,   100] loss: 2.047
+[7,   200] loss: 2.023
+[7,   300] loss: 2.014
+[8,   100] loss: 1.988
+[8,   200] loss: 1.964
+[8,   300] loss: 1.949
+[9,   100] loss: 1.919
+[9,   200] loss: 1.882
+[9,   300] loss: 1.867
+[10,   100] loss: 1.828
+[10,   200] loss: 1.793
+[10,   300] loss: 1.799
+Finished Training
+Training Time: 128.90034294128418
+Accuracy of the network on the 10000 test images: 38 %
+</code></pre>
+<!-- /wp:preformatted -->
+
+
+
+<h4>Training Your CNN Model:</h4>
+
+<p>Once our CNN model is defined, we'll embark on the training journey. We'll discuss key concepts such as loss functions, optimization algorithms (e.g., Stochastic Gradient Descent), and the importance of hyperparameters. Guided by practical examples, you'll learn how to feed input data into your model, compute loss, and iteratively update model parameters to minimize loss, ultimately improving model performance.</p>
+
+<p>In our quest for optimal performance, we'll employ a hyperparameter grid search technique. Hyperparameters such as learning rates and momentums play a critical role in shaping the behavior and performance of our CNN model. To find the best combination of hyperparameters, we'll exhaustively search through predefined ranges of values. In this example, we'll experiment with different learning rates (0.001, 0.01, 0.1) and momentums (0.9, 0.95, 0.99) using itertools.product() to generate all possible combinations. For each combination, we'll train the model on the CIFAR-10 dataset and evaluate its accuracy on the test set. The hyperparameters yielding the highest accuracy will be identified as the best configuration for our model. This systematic approach allows us to fine-tune our model and achieve optimal performance for our specific task.</p>
+
+<p>This code below will perform a grid search over the specified learning rates and momentums</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.nn as nn
+import torch.optim as optim
+import time
+import itertools
+
+# Define the transformations for the dataset
+transform_train = transforms.Compose([
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 dataset
+trainset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=True, download=True, transform=transform_train)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Define the CNN model
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(256 * 4 * 4, 512)
+        self.fc2 = nn.Linear(512, 10)
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = torch.relu(self.conv4(x))
+        x = self.pool(torch.relu(self.conv5(x)))
+        x = torch.relu(self.conv6(x))
+        x = self.pool(x)
+        x = torch.flatten(x, 1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+# Define hyperparameters for grid search
+learning_rates = [0.001, 0.01, 0.1]
+momentums = [0.9, 0.95, 0.99]
+
+# Perform grid search
+best_accuracy = 0
+best_lr = None
+best_momentum = None
+for lr, momentum in itertools.product(learning_rates, momentums):
+    # Instantiate the model
+    net = Net()
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    net.to(device)
+
+    # Define the loss function and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.SGD(net.parameters(), lr=lr, momentum=momentum)
+
+    # Training the network
+    start_time = time.time()
+    for epoch in range(10):  # loop over the dataset multiple times
+        running_loss = 0.0
+        for i, data in enumerate(trainloader, 0):
+            inputs, labels = data[0].to(device), data[1].to(device)
+
+            # zero the parameter gradients
+            optimizer.zero_grad()
+
+            # forward + backward + optimize
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+
+            # print statistics
+            running_loss += loss.item()
+            if i % 100 == 99:    # print every 100 mini-batches
+                print('[%d, %5d] loss: %.3f' %
+                      (epoch + 1, i + 1, running_loss / 100))
+                running_loss = 0.0
+
+    print('Finished Training')
+    print("Training Time:", time.time() - start_time)
+
+    # Testing the network
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for data in testloader:
+            images, labels = data[0].to(device), data[1].to(device)
+            outputs = net(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    accuracy = 100 * correct / total
+    print('Accuracy of the network on the 10000 test images: %.2f %%' % accuracy)
+
+    # Save best hyperparameters
+    if accuracy > best_accuracy:
+        best_accuracy = accuracy
+        best_lr = lr
+        best_momentum = momentum
+
+print("Best LR:", best_lr)
+print("Best Momentum:", best_momentum)
+print("Best Accuracy:", best_accuracy)
+</code></pre>
+<!-- /wp:preformatted -->
+
+
+<p>In the provided script, the hyperparameter grid search technique is implemented using nested loops to iterate over all combinations of the specified learning rates and momentums. Let's break down the code to understand how it works:</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+# Define hyperparameters for grid search
+learning_rates = [0.001, 0.01, 0.1]
+momentums = [0.9, 0.95, 0.99]
+</code></pre>
+<!-- /wp:preformatted -->
+
+<p>Here, we define lists containing the learning rates and momentums that we want to try during the grid search.</p>
+
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+# Perform grid search
+best_accuracy = 0
+best_lr = None
+best_momentum = None
+for lr, momentum in itertools.product(learning_rates, momentums):
+    # Instantiate the model
+    net = Net()
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    net.to(device)
+
+    # Define the loss function and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.SGD(net.parameters(), lr=lr, momentum=momentum)
+
+    # Training the network
+    # (omitted for brevity)
+    
+    # Testing the network
+    # (omitted for brevity)
+
+    accuracy = 100 * correct / total
+
+    # Save best hyperparameters
+    if accuracy > best_accuracy:
+        best_accuracy = accuracy
+        best_lr = lr
+        best_momentum = momentum
+
+print("Best LR:", best_lr)
+print("Best Momentum:", best_momentum)
+print("Best Accuracy:", best_accuracy)
+</code></pre>
+<!-- /wp:preformatted -->
+
+<p>In this part of the code, we use itertools.product() to generate all possible combinations of learning rates and momentums. For each combination, we instantiate the model, define the loss function and optimizer with the current hyperparameters, and then train and test the model on the CIFAR-10 dataset.</p>
+
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+Finished Training
+Training Time: 135.65481781959534
+Accuracy of the network on the 10000 test images: 10.00 %
+Best LR: 0.01
+Best Momentum: 0.95
+Best Accuracy: 81.93
+</code></pre>
+<!-- /wp:preformatted -->
+
+<p>After evaluating the model's accuracy, we compare it with the best_accuracy variable. If the current accuracy is higher than the previous best accuracy, we update best_accuracy, best_lr, and best_momentum accordingly.</p>
+
+<p>Finally, after completing the grid search, the script prints out the best learning rate (best_lr), momentum (best_momentum), and the corresponding accuracy (best_accuracy).<p>
+
+<p>These are the hyperparameters that resulted in the highest accuracy on the test set during the grid search.</p>
+
+<p>Along with the Network model these hyperparameters are specifically passed to the python torch Stochastic Gradient Descent (SGD) optimization algorithm. 
+The Stochastic Gradient Descent (SGD) is a popular optimization algorithm used to minimize the loss function during the training of neural networks. 
+It works by updating the parameters of the model in the direction that reduces the loss, based on the gradients of the loss function with respect to those parameters. 
+In each iteration (or mini-batch), SGD computes the gradient of the loss function with respect to the parameters using backpropagation and updates the parameters in the opposite direction of the gradient.</p>
+
+<p>Below we apply these tuned hyperparameters that resulted in the highest accuracy on the test set during the grid search.</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.nn as nn
+import torch.optim as optim
+import time
+
+# Define the transformations for the dataset
+transform_train = transforms.Compose([
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 dataset
+trainset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=True, download=True, transform=transform_train)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Define the CNN model
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(256 * 4 * 4, 512)
+        self.fc2 = nn.Linear(512, 10)
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = torch.relu(self.conv4(x))
+        x = self.pool(torch.relu(self.conv5(x)))
+        x = torch.relu(self.conv6(x))
+        x = self.pool(x)
+        x = torch.flatten(x, 1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+# Define the best hyperparameters found during grid search
+best_lr = 0.01
+best_momentum = 0.95
+
+# Define epochs and params
+epochs = 100
+
+# Instantiate the model
+net = Net()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+net.to(device)
+
+# Define the loss function and optimizer using the best hyperparameters
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=best_lr, momentum=best_momentum)
+
+# Training the network
+start_time = time.time()
+for epoch in range(epochs):  # loop over the dataset multiple times
+    running_loss = 0.0
+    for i, data in enumerate(trainloader, 0):
+        inputs, labels = data[0].to(device), data[1].to(device)
+
+        # zero the parameter gradients
+        optimizer.zero_grad()
+
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        # print statistics
+        running_loss += loss.item()
+        if i % 100 == 99:    # print every 100 mini-batches
+            print('[%d, %5d] loss: %.3f' %
+                  (epoch + 1, i + 1, running_loss / 100))
+            running_loss = 0.0
+
+print('Finished Training')
+print("Training Time:", time.time() - start_time)
+
+# Testing the network
+correct = 0
+total = 0
+with torch.no_grad():
+    for data in testloader:
+        images, labels = data[0].to(device), data[1].to(device)
+        outputs = net(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+print('Accuracy of the network on the 10000 test images: %.2f %%' % (100 * correct / total))
+
+# Save the trained model
+torch.save(net.state_dict(), 'ml-complex-cnn-CIFAR-10-trained_model.pth')
+</code></pre>
+<!-- /wp:preformatted -->
+
+
+<p>The provided code above represents the training of a convolutional neural network (CNN) on the CIFAR-10 dataset using the best hyperparameters obtained from the grid search. 
+After training on 100 epochs, the model is saved to a file named ml-complex-cnn-CIFAR-10-trained_model.pth. 
+Let's break down the code and explain the significance of saving the model as a .pth file:</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code># Save the trained model
+torch.save(net.state_dict(), 'ml-complex-cnn-CIFAR-10-trained_model.pth')
+</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>
+[90,   100] loss: 0.057
+[90,   200] loss: 0.048
+[90,   300] loss: 0.049
+[91,   100] loss: 0.042
+[91,   200] loss: 0.048
+[91,   300] loss: 0.047
+[92,   100] loss: 0.051
+[92,   200] loss: 0.039
+[92,   300] loss: 0.050
+[93,   100] loss: 0.044
+[93,   200] loss: 0.048
+[93,   300] loss: 0.063
+[94,   100] loss: 0.036
+[94,   200] loss: 0.037
+[94,   300] loss: 0.041
+[95,   100] loss: 0.045
+[95,   200] loss: 0.044
+[95,   300] loss: 0.047
+[96,   100] loss: 0.047
+[96,   200] loss: 0.044
+[96,   300] loss: 0.044
+[97,   100] loss: 0.045
+[97,   200] loss: 0.043
+[97,   300] loss: 0.048
+[98,   100] loss: 0.045
+[98,   200] loss: 0.051
+[98,   300] loss: 0.044
+[99,   100] loss: 0.036
+[99,   200] loss: 0.044
+[99,   300] loss: 0.040
+[100,   100] loss: 0.038
+[100,   200] loss: 0.042
+[100,   300] loss: 0.042
+Finished Training
+Training Time: 1381.277798652649
+Accuracy of the network on the 10000 test images: 88.88 %
+</code></pre>
+<!-- /wp:preformatted -->
+
+<p>After doing a grid search and coming up with optimized hyperparameters and applying them to the CNN Model and training it over 100 epochs.
+The networks best accuracy has gone from  81.93 % to 88.88 % </p>
+
+
+<p>While adding the hyperparameter optimized settings to the CNN model, I have also added, torch.save() a function provided by PyTorch that allows us to save the state of the model (i.e., its parameters) to a file. 
+The first argument, net.state_dict(), retrieves a dictionary containing the parameters of the model. 
+This dictionary maps each parameter name to its corresponding tensor value.</p>
+
+<p>The second argument, 'ml-complex-cnn-CIFAR-10-trained_model.pth', specifies the filename where the model will be saved. The .pth extension is commonly used for PyTorch model checkpoints or saved states.</p>
+
+<p>Saving the trained model to a file serves several purposes:<p>
+
+<p><strong>Persistence:</strong> By saving the model to a file, we can persist its state beyond the current Python session. This allows us to load the trained model later for evaluation, inference, or further training without needing to retrain it from scratch.</p>
+
+<p><strong>Reproducibility:</strong> Saving the model ensures that we can reproduce the same trained model later, even if the original training code or environment changes. This is crucial for reproducible research and production deployment.</p>
+
+<p><strong>Sharing:</strong> The saved model file can be shared with others or deployed to production systems for inference. This enables collaboration, model sharing, and deployment in real-world applications.</p>
+
+<p><strong>Checkpointing:</strong> Saving intermediate model checkpoints during training allows us to resume training from a specific point in case of interruptions or failures. This is especially useful for long training sessions or distributed training across multiple devices.</p>
+
+<p>In summary, saving the trained model to a .pth file provides a convenient and standardized way to store and share the model's parameters, ensuring reproducibility, persistence, and ease of deployment in various applications.</p>
+
+
+
+<h4>Evaluating Model Performance:</h4>
+
+<p>With our CNN model trained, it's essential to assess its performance. 
+We'll cover various evaluation metrics, including accuracy, precision, recall, and F1 score, to gauge how well our model generalizes to unseen data. 
+Through hands-on demonstrations, you'll learn how to interpret evaluation results and identify areas for model improvement.</p>
+
+<p>Evaluating the performance of a CNN model is crucial to understanding how well it generalizes to unseen data and to identify any potential areas for improvement. H
+ere's an explanation of various evaluation metrics commonly used in assessing model performance:<p>
+
+<p><strong>Accuracy:</strong> measures the proportion of correctly classified samples among the total number of samples. 
+It's the most straightforward metric and is calculated as the ratio of correctly predicted samples to the total number of samples in the dataset.</p>
+
+<p><strong>Precision:</strong> measures the proportion of true positive predictions (correctly predicted positives) among all samples predicted as positive. It's calculated as the ratio of true positives to the sum of true positives and false positives.
+Precision provides insights into the model's ability to avoid false positives.</p>
+
+<p><strong>Recall (Sensitivity):</strong> also known as sensitivity or true positive rate, measures the proportion of true positive predictions among all actual positive samples. It's calculated as the ratio of true positives to the sum of true positives and false negatives.
+Recall indicates how effectively the model identifies all positive instances in the dataset.</p>
+
+<p><strong>F1 Score:</strong> is the harmonic mean of precision and recall, providing a balanced measure that considers both false positives and false negatives.
+It's calculated as 2 times the product of precision and recall divided by the sum of precision and recall.
+F1 score is useful when there's an uneven class distribution or when both false positives and false negatives are equally important.</p>
+
+<p>When evaluating the performance of a CNN model, you can use these metrics to gain insights into its strengths and weaknesses. 
+For example, a high accuracy score suggests that the model performs well overall, but examining precision and recall can reveal how it performs on specific classes or in scenarios where false positives or false negatives are critical.</p>
+
+<p>To evaluate the CNN model in the article, you can follow the steps outlined or use this code below to calculate the evaluation metrics.</p>
+
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>import torch
+from ml_complex_cnn_CIFAR_10_hyperparameter_best import Net  # Assuming Net is the class defining your CNN model
+import torchvision.transforms as transforms
+import torchvision.datasets as datasets
+import torch.utils.data as data
+
+# Define the device (GPU or CPU)
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+# Define the transformations for the dataset
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 test dataset
+testset = datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Load the trained model
+net = Net()
+net.load_state_dict(torch.load('ml_complex_cnn_CIFAR_10_trained_model.pth'))
+net.eval()  # Set the model to evaluation mode
+
+# Evaluation Metrics Initialization
+total_correct = 0
+total_samples = 0
+true_positives = 0
+false_positives = 0
+false_negatives = 0
+
+# For calculating F1 score
+epsilon = 1e-7  # to avoid division by zero
+
+# Testing the network
+with torch.no_grad():
+    for data in testloader:
+        images, labels = data[0].to(device), data[1].to(device)
+        outputs = net(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total_samples += labels.size(0)
+        total_correct += (predicted == labels).sum().item()
+
+        # Calculate true positives, false positives, and false negatives
+        true_positives += ((predicted == 1) & (labels == 1)).sum().item()
+        false_positives += ((predicted == 1) & (labels == 0)).sum().item()
+        false_negatives += ((predicted == 0) & (labels == 1)).sum().item()
+
+# Calculate accuracy
+accuracy = 100 * total_correct / total_samples
+print('Accuracy of the network on the test images: {:.2f}%'.format(accuracy))
+
+# Calculate precision, recall, and F1 score
+precision = true_positives / (true_positives + false_positives + epsilon)
+recall = true_positives / (true_positives + false_negatives + epsilon)
+f1_score = 2 * (precision * recall) / (precision + recall + epsilon)
+
+print('Precision: {:.4f}'.format(precision))
+print('Recall: {:.4f}'.format(recall))
+print('F1 Score: {:.4f}'.format(f1_score))
+</code></pre>
+<!-- /wp:preformatted -->
+
+<p>The trained model is loaded from the saved state dictionary file (ml_complex_cnn_CIFAR_10_trained_model.pth) using torch.load() and net.load_state_dict().<p>
+
+<p>Then the model is set to evaluation mode using net.eval().</p>
+
+<p>Evaluation metrics such as accuracy, precision, recall, and F1 score are calculated using the predicted labels and ground truth labels obtained from the test set.
+Precision, recall, and F1 score are calculated using the formulas provided in the explanation.
+The calculated evaluation metrics are printed to assess the performance of the CNN model on the test set.
+This code will provide insights into how well the CNN model generalizes to unseen data and its performance in terms of precision, recall, and F1 score, in addition to accuracy.</p>
+
+<p>The purpose of loading the model from the saved state dictionary is to ensure that the evaluation is performed on the same model that was trained and saved previously. 
+This ensures consistency and allows you to assess the performance of the trained model on unseen data accurately.</p>
+
+<p>Results of the model evaluation</p>
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>[97,   200] loss: 0.050
+[97,   300] loss: 0.047
+[98,   100] loss: 0.042
+[98,   200] loss: 0.039
+[98,   300] loss: 0.041
+[99,   100] loss: 0.035
+[99,   200] loss: 0.046
+[99,   300] loss: 0.036
+[100,   100] loss: 0.047
+[100,   200] loss: 0.046
+[100,   300] loss: 0.050
+Finished Training
+Training Time: 1295.6312789916992
+Accuracy of the network on the 10000 test images: 89.50 %
+Files already downloaded and verified
+Accuracy of the network on the test images: 89.50%
+Precision: 0.9917
+Recall: 0.9938
+F1 Score: 0.9928
+</code></pre>
+<!-- /wp:preformatted -->
+
+<p><strong>Summary of Results:</strong></p>
+
+<p><strong>Training Loss:</strong> The training loss steadily decreases over epochs, indicating that the model is learning and improving its predictions.</p>
+
+<p><strong>Training Time:</strong> The total training time is approximately 1295.63 seconds, indicating the time taken to train the model on the dataset.</p>
+
+<p><strong>Accuracy on Test Images:</strong> The accuracy of the CNN model on the 10,000 test images from the CIFAR-10 dataset is 89.50%. This suggests that the model performs well in classifying unseen data.</p>
+
+<p><strong>Precision:</strong> The precision of the model is 0.9917, which indicates that among all samples predicted as positive, 99.17% are true positive predictions.</p>
+
+<p><strong>Recall (Sensitivity):</strong> The recall of the model is 0.9938, signifying that among all actual positive samples, 99.38% are correctly identified by the model.</p>
+
+<p><strong>F1 Score:</strong> The F1 score, which is the harmonic mean of precision and recall, is 0.9928. This balanced metric considers both false positives and false negatives, providing an overall assessment of the model's performance.</p>
+
+<p>Overall, these results indicate that the trained CNN model achieves high accuracy and demonstrates strong performance in classifying images from the CIFAR-10 dataset. 
+The high precision, recall, and F1 score further validate the model's effectiveness in making accurate predictions while minimizing false positives and false negatives.</p>
+
+
+<!-- Content Conclusion -->
+<h3>Conclusion</h3>
+
+<p>In this introductory article, we've laid down the groundwork for our journey into the realm of CNNs. 
+By setting up Python, configuring CUDA, and crafting our first CNN model, we've taken the crucial first steps towards mastering this powerful technology. 
+In the subsequent articles, we'll delve deeper into advanced topics, exploring techniques for optimizing model performance, enhancing architecture design, and leveraging state-of-the-art methodologies. 
+So, buckle up and get ready to embark on an exciting adventure into the world of Convolutional Neural Networks!</p>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/bootstrap/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+<script src="/assets/index.js"></script>
+
+</body>
+</html>

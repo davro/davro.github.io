@@ -1,0 +1,131 @@
+--------------------------------------------------------------------------------
+What do you think of this 
+
+The article will expand to be a series of around 7 articles, with the first detailing the setting up of python and CUDA, creating the CNN and optimising the model using a hyperparameter grid search technique, testing learning rates, momentum, batch sizes, and number of epochs to find optimal values that improve performance, aiming for an initial network accuracy of around 80%+ on 10k test images. 
+
+Then the following articles will focus on these 6 steps to potentially improve the performance of the model:
+
+Model Architecture: Consider modifying the architecture of the CNN, increasing the depth of the network, adding dropout layers for regularisation, batch normalisation layers.
+
+Data Augmentation: artificially increase the size of the training dataset. random rotations, translations, flips, and changes in brightness/contrast.
+
+Learning Rate Scheduling: By reducing the learning rate during training.
+
+Regularisation: Employ techniques like weight decay or dropout to prevent over fitting on the training data.
+
+Advanced Architectures: Investigate using more advanced CNN architectures like ResNet, DenseNet, or Inception, which may provide better performance.
+
+Advanced Training Techniques: Transfer learning, ensembling multiple models.
+
+
+------------------
+
+plan for a series of articles sounds comprehensive and well-structured. By breaking down the process into multiple articles, each focusing on a specific aspect of improving model performance, readers will have the opportunity to delve deeper into each topic and gain a thorough understanding of the various techniques involved in optimizing a CNN model.
+
+Here's some feedback on your proposed article series:
+
+Setting up Python and CUDA & Model Creation: This serves as an excellent starting point, covering the foundational aspects of setting up the development environment and constructing the initial CNN model.
+
+Hyperparameter Optimization: This article lays the groundwork for understanding the importance of hyperparameters and demonstrates how to optimize them using a grid search technique. It's crucial for establishing a solid baseline performance.
+
+Model Architecture: Exploring modifications to the architecture can greatly impact model performance. This article will provide valuable insights into designing CNN architectures for specific tasks and optimizing them for better performance.
+
+Data Augmentation: Data augmentation is a powerful technique for expanding the training dataset and improving model generalization. This article will demonstrate how to implement various augmentation strategies effectively.
+
+Learning Rate Scheduling & Regularization: Learning rate scheduling and regularization techniques play a vital role in preventing overfitting and enhancing model generalization. This article will cover how to implement these techniques and their impact on model performance.
+
+Advanced Architectures: Exploring more advanced CNN architectures offers readers the opportunity to leverage state-of-the-art models for their projects. This article will introduce popular architectures like ResNet, DenseNet, and Inception and demonstrate how to adapt them to specific tasks.
+
+Advanced Training Techniques: Transfer learning and model ensembling are advanced techniques that can further enhance model performance. This article will delve into these methods and showcase their effectiveness in improving model accuracy.
+
+Overall, this series of articles provides a comprehensive roadmap for readers to navigate the process of building and optimizing CNN models effectively. It covers a wide range of topics, from foundational concepts to advanced techniques, ensuring readers have a well-rounded understanding of the subject matter.
+
+
+--------------------------------------------------------------------------------
+Article 1)
+"Starting Strong: Python, CUDA Setup, and Crafting Your First CNN Model"
+
+
+--------------------------------------------------------------------------------
+epoch 10
+python3 ml-complex-cnn-CIFAR-10-hyperparameter-best.py
+
+Files already downloaded and verified
+Files already downloaded and verified
+[1,   100] loss: 2.303
+[1,   200] loss: 2.301
+[1,   300] loss: 2.148
+[2,   100] loss: 1.900
+[2,   200] loss: 1.803
+[2,   300] loss: 1.692
+[3,   100] loss: 1.553
+[3,   200] loss: 1.524
+[3,   300] loss: 1.417
+[4,   100] loss: 1.309
+[4,   200] loss: 1.260
+[4,   300] loss: 1.216
+[5,   100] loss: 1.087
+[5,   200] loss: 1.038
+[5,   300] loss: 1.009
+[6,   100] loss: 0.899
+[6,   200] loss: 0.855
+[6,   300] loss: 0.818
+[7,   100] loss: 0.778
+[7,   200] loss: 0.741
+[7,   300] loss: 0.726
+[8,   100] loss: 0.672
+[8,   200] loss: 0.665
+[8,   300] loss: 0.661
+[9,   100] loss: 0.602
+[9,   200] loss: 0.586
+[9,   300] loss: 0.594
+[10,   100] loss: 0.538
+[10,   200] loss: 0.548
+[10,   300] loss: 0.533
+Finished Training
+Training Time: 133.75973773002625
+Accuracy of the network on the 10000 test images: 81.94 %
+
+--------------------------------------------------------------------------------
+epoch 100
+python3 ml-complex-cnn-CIFAR-10-hyperparameter-best.py
+
+[90,   300] loss: 0.056
+[91,   100] loss: 0.037
+[91,   200] loss: 0.059
+[91,   300] loss: 0.056
+[92,   100] loss: 0.052
+[92,   200] loss: 0.045
+[92,   300] loss: 0.047
+[93,   100] loss: 0.046
+[93,   200] loss: 0.041
+[93,   300] loss: 0.059
+[94,   100] loss: 0.055
+[94,   200] loss: 0.048
+[94,   300] loss: 0.046
+[95,   100] loss: 0.047
+[95,   200] loss: 0.043
+[95,   300] loss: 0.048
+[96,   100] loss: 0.041
+[96,   200] loss: 0.042
+[96,   300] loss: 0.044
+[97,   100] loss: 0.050
+[97,   200] loss: 0.051
+[97,   300] loss: 0.050
+[98,   100] loss: 0.053
+[98,   200] loss: 0.055
+[98,   300] loss: 0.048
+[99,   100] loss: 0.040
+[99,   200] loss: 0.040
+[99,   300] loss: 0.045
+[100,   100] loss: 0.045
+[100,   200] loss: 0.047
+[100,   300] loss: 0.044
+Finished Training
+Training Time: 1295.2021675109863
+Accuracy of the network on the 10000 test images: 89.15 %
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
