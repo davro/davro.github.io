@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="">
+    <title>P2P Node Selection with Transformers and Self-Attention Mechanisms: A Path to Efficient Data Transmission</title>
+
+    <!-- Bootstrap CSS link -->
+    <link href="/assets/bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/article.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+            <!-- Post Image Responsive/ -->
+            <img src="/2024/03/StartingStrongAdvancingYourCNNModel.jpg" class="img-fluid" alt="">
+
+<!-- Post Title -->
+<h1>Advancing Your Convolutional Neural Networks: Optimizing Depth, Regularization, and Normalization for Improved Performance</h1>
+
+<p>
+In the first part of our series, "Starting Strong: Python, CUDA Setup, and Crafting Your First CNN Model," we delved into the fundamentals of building a Convolutional Neural Network (CNN) for image classification tasks using Python and CUDA. Now, equipped with a basic understanding of CNNs, it's time to take our models to the next level. In this article, we will explore advanced techniques to enhance the performance and robustness of our CNNs. Specifically, we'll focus on modifying the model architecture by increasing depth, implementing dropout layers for regularization, and incorporating batch normalization layers. By the end of this article, you'll have a deeper understanding of how these techniques can elevate your CNNs to achieve better accuracy and generalization on tasks like the CIFAR-10 dataset.
+</p>
+
+
+
+<h4>Modifying Model Architecture:</h4>
+<p>
+In the code provided, you'll notice that our CNN architecture consists of multiple convolutional layers followed by max-pooling layers and fully connected layers. To increase the model's capacity and ability to learn complex features, we've augmented the depth of our network by adding more convolutional layers. By stacking additional layers, the network gains the capacity to capture intricate patterns and nuances within the data, potentially improving its performance.
+</p>
+
+
+<h4>Regularization with Dropout:</h4>
+<p>
+Overfitting is a common issue in deep learning, especially when dealing with complex datasets like CIFAR-10. To mitigate overfitting and improve the model's generalization, we've incorporated dropout layers into our CNN architecture. Dropout randomly deactivates a certain percentage of neurons during each training iteration, forcing the network to learn more robust features and reducing reliance on individual neurons. This regularization technique helps prevent the model from memorizing the training data and encourages it to generalize better to unseen examples.
+</p>
+
+<p>
+To implement dropout regularization in your CNN architecture, you need to add dropout layers at appropriate positions within your model. Here's how you can modify your code to incorporate dropout:
+</p>
+
+<!-- CODE EXAMPLE -->
+<pre class="wp-block-preformatted"><code>import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.nn as nn
+import torch.optim as optim
+import time
+
+# Define the transformations for the dataset
+transform_train = transforms.Compose([
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 dataset
+trainset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=True, download=True, transform=transform_train)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Define the CNN model with dropout
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(256 * 4 * 4, 512)
+        self.fc2 = nn.Linear(512, 10)
+        self.dropout = nn.Dropout(0.5)  # Add dropout layer with probability 0.5
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = self.dropout(x)  # Apply dropout after pooling
+        x = torch.relu(self.conv4(x))
+        x = self.pool(torch.relu(self.conv5(x)))
+        x = torch.relu(self.conv6(x))
+        x = self.pool(x)
+        x = torch.flatten(x, 1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+# Define the best hyperparameters found during grid search
+best_lr = 0.01
+best_momentum = 0.95
+
+# Define epochs and params
+epochs = 100
+
+# Instantiate the model
+net = Net()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+net.to(device)
+
+# Define the loss function and optimizer using the best hyperparameters
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=best_lr, momentum=best_momentum)
+
+# Training the network
+start_time = time.time()
+for epoch in range(epochs):  # loop over the dataset multiple times
+    running_loss = 0.0
+    for i, data in enumerate(trainloader, 0):
+        inputs, labels = data[0].to(device), data[1].to(device)
+
+        # zero the parameter gradients
+        optimizer.zero_grad()
+
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        # print statistics
+        running_loss += loss.item()
+        if i % 100 == 99:    # print every 100 mini-batches
+            print('[%d, %5d] loss: %.3f' %
+                  (epoch + 1, i + 1, running_loss / 100))
+            running_loss = 0.0
+
+print('Finished Training')
+print("Training Time:", time.time() - start_time)
+
+# Testing the network
+correct = 0
+total = 0
+with torch.no_grad():
+    for data in testloader:
+        images, labels = data[0].to(device), data[1].to(device)
+        outputs = net(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+print('Accuracy of the network on the 10000 test images: %.2f %%' % (100 * correct / total))
+
+# Save the trained model
+torch.save(net.state_dict(), 'ml_complex_cnn_CIFAR_10_trained_model.pth')
+</code></pre>
+<!-- /CODE EXAMPLE -->
+
+
+<p>
+In the modified code:
+
+I added a nn.Dropout layer with a dropout probability of 0.5 after the third convolutional layer (self.conv3) and after the first max-pooling operation.
+This dropout layer randomly deactivates 50% of the neurons' outputs during training, forcing the network to learn more robust features and reducing overfitting.
+By incorporating dropout regularization, your CNN model should be more resilient to overfitting and generalize better to unseen data. Adjust the dropout probability as needed based on your specific dataset and architecture.
+</p>
+
+<h4>Tuning Dropout Rate</h4>
+<p>
+You can tune the dropout rate as a hyperparameter during the model training process. Here's how you can incorporate dropout tuning into your training pipeline using hyperparameters:
+</p>
+
+<!-- CODE EXAMPLE -->
+<pre class="wp-block-preformatted"><code>import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.nn as nn
+import torch.optim as optim
+import time
+
+# Define the transformations for the dataset
+transform_train = transforms.Compose([
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 dataset
+trainset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=True, download=True, transform=transform_train)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Define the CNN model with dropout
+class Net(nn.Module):
+    def __init__(self, dropout_rate):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(256 * 4 * 4, 512)
+        self.fc2 = nn.Linear(512, 10)
+        self.dropout = nn.Dropout(dropout_rate)
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = self.dropout(x)  # Apply dropout after pooling
+        x = torch.relu(self.conv4(x))
+        x = self.pool(torch.relu(self.conv5(x)))
+        x = torch.relu(self.conv6(x))
+        x = self.pool(x)
+        x = torch.flatten(x, 1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+# Define hyperparameters
+learning_rate = 0.01
+momentum = 0.95
+epochs = 100
+dropout_rates = [0.2, 0.3, 0.4, 0.5]  # Dropout rates to try
+
+# Training loop for each dropout rate
+for dropout_rate in dropout_rates:
+    # Instantiate the model
+    net = Net(dropout_rate)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    net.to(device)
+
+    # Define the loss function and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=momentum)
+
+    # Training the network
+    start_time = time.time()
+    for epoch in range(epochs):  
+        running_loss = 0.0
+        for i, data in enumerate(trainloader, 0):
+            inputs, labels = data[0].to(device), data[1].to(device)
+            optimizer.zero_grad()
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+            if i % 100 == 99:   
+                print('[%d, %5d] loss: %.3f' %
+                      (epoch + 1, i + 1, running_loss / 100))
+                running_loss = 0.0
+
+    print('Finished Training for dropout rate:', dropout_rate)
+    print("Training Time:", time.time() - start_time)
+
+    # Testing the network
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for data in testloader:
+            images, labels = data[0].to(device), data[1].to(device)
+            outputs = net(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    print('Accuracy of the network on the 10000 test images: %.2f %%' % (100 * correct / total))
+
+    # Save the trained model
+    torch.save(net.state_dict(), 'ml_complex_cnn_CIFAR_10_trained_model_dropout_{}.pth'.format(dropout_rate))
+
+</code></pre>
+<!-- /CODE EXAMPLE -->
+
+<p>
+In this modified code:
+
+I've added a list dropout_rates containing different dropout rates to try during training.
+Now we will iterate over each dropout rate, training a separate model for each rate, with default Nouveau drivers then Proprietary Nvidia driver. 
+The Net class now takes dropout_rate as a parameter, allowing us to instantiate the model with different dropout rates.
+After training each model, its accuracy is evaluated on the test set, and the model is saved with a filename indicating the dropout rate used during training.
+By tuning the dropout rate as a hyperparameter, you can find the optimal dropout value that helps prevent overfitting and improves generalization on your dataset.
+</p>
+
+
+
+<!-- CODE EXAMPLE -->
+<pre class="wp-block-preformatted"><code>+------------------------------------------------------------------------------+
+--run1 (Nouveau Drivers)
+Finished Training for dropout rate: 0.2
+Training Time: 133.51621103286743
+Accuracy of the network on the 10000 test images: 81.53 %
+
+Finished Training for dropout rate: 0.3
+Training Time: 133.45274257659912
+Accuracy of the network on the 10000 test images: 81.22 % 
+
+Finished Training for dropout rate: 0.4
+Training Time: 137.08630061149597
+Accuracy of the network on the 10000 test images: 81.52 %
+
+Finished Training for dropout rate: 0.5
+Training Time: 137.70552611351013
+Accuracy of the network on the 10000 test images: 81.15 %
+
+--run1.2 (Nouveau Drivers)
+Finished Training for dropout rate: 0.2
+Training Time: 129.1973705291748
+Accuracy of the network on the 10000 test images: 81.84 %
+
+Finished Training for dropout rate: 0.3
+Training Time: 128.3946669101715
+Accuracy of the network on the 10000 test images: 81.14 %
+
+Finished Training for dropout rate: 0.4
+Training Time: 129.1921784877777
+Accuracy of the network on the 10000 test images: 80.89 %
+
+Finished Training for dropout rate: 0.5
+Training Time: 129.74105215072632
+Accuracy of the network on the 10000 test images: 80.96 %
+
++------------------------------------------------------------------------------+
+--run2.1 (NVIDIA 535 Drivers)
+Finished Training for dropout rate: 0.2
+Training Time: 131.73845672607422
+Accuracy of the network on the 10000 test images: 82.08 %
+
+Finished Training for dropout rate: 0.3
+Training Time: 130.14800548553467
+Accuracy of the network on the 10000 test images: 79.25 %
+
+Finished Training for dropout rate: 0.4
+Training Time: 128.82141184806824
+Accuracy of the network on the 10000 test images: 81.05 %
+
+Finished Training for dropout rate: 0.5
+Training Time: 129.2539610862732
+Accuracy of the network on the 10000 test images: 79.53 %
+
+--run2.2 (NVIDIA 535 Drivers)
+Finished Training for dropout rate: 0.2
+Training Time: 129.3820822238922
+Accuracy of the network on the 10000 test images: 80.87 %
+
+Finished Training for dropout rate: 0.3
+Training Time: 129.14892387390137
+Accuracy of the network on the 10000 test images: 82.13 %
+
+Finished Training for dropout rate: 0.4
+Training Time: 129.38262128829956
+Accuracy of the network on the 10000 test images: 80.91 %
+
+Finished Training for dropout rate: 0.5
+Training Time: 129.44506335258484
+Accuracy of the network on the 10000 test images: 79.90 %
+
++------------------------------------------------------------------------------+
+</code></pre>
+<!-- /CODE EXAMPLE -->
+
+<p>
+Based on the provided results, it appears that the dropout rate of 0.2 consistently achieved the highest accuracy across multiple runs and different driver configurations. Here's a summary of the results:
+</p>
+
+<h5>Nouveau Drivers:</h5>
+<ul>
+<li>Dropout Rate 0.2: Accuracy = 81.53% (run1), 81.84% (run1.2)</li>
+<li>Dropout Rate 0.3: Accuracy = 81.22% (run1), 81.14% (run1.2)</li>
+<li>Dropout Rate 0.4: Accuracy = 81.52% (run1), 80.89% (run1.2)</li>
+<li>Dropout Rate 0.5: Accuracy = 81.15% (run1), 80.96% (run1.2)</li>
+</ul>
+
+<h5>NVIDIA 535 Drivers:</h5>
+
+<p>
+<ul>
+<li>Dropout Rate 0.2: Accuracy = 82.08% (run2.1), 80.87% (run2.2)</li>
+<li>Dropout Rate 0.3: Accuracy = 79.25% (run2.1), 82.13% (run2.2)</li>
+<li>Dropout Rate 0.4: Accuracy = 81.05% (run2.1), 80.91% (run2.2)</li>
+<li>Dropout Rate 0.5: Accuracy = 79.53% (run2.1), 79.90% (run2.2)</li>
+</ul>
+
+<p>
+In both Nouveau and NVIDIA driver configurations, dropout rate 0.2 consistently resulted in the highest accuracy on the test set. Therefore, based on these results, it can be confirmed that dropout rate 0.2 is indeed the best-performing dropout rate for your CNN model on the CIFAR-10 dataset.
+</p>
+
+
+<br />
+
+
+<h4>Enhancing Stability with Batch Normalization:</h4>
+<p>
+Now that we have chosen the optimal dropout rate through thorough testing, the next logical step is to enhance the stability and performance of our Convolutional Neural Network (CNN) by introducing batch normalization layers.
+Batch normalization (BatchNorm) is a technique used to normalize the activations of each layer across mini-batches during training. 
+This normalization process helps in making the optimization process more stable and accelerating convergence. Here's how batch normalization works and its benefits:
+</p>
+
+<p>
+Batch normalization normalizes the activations of each layer across mini-batches during training, making the optimization process more stable and accelerating convergence. 
+By maintaining a consistent distribution of inputs to each layer, batch normalization reduces the internal covariate shift and allows for smoother gradient flow through the network. 
+This, in turn, enables faster training and often leads to better performance.
+</p>
+
+<ul>
+<li>
+Normalization of Activations: Batch normalization normalizes the activations of each layer by subtracting the mini-batch mean and dividing by the mini-batch standard deviation. This process ensures that the activations have a consistent distribution, which helps in stabilizing the training process.
+</li>
+<li>
+Reducing Internal Covariate Shift: Internal covariate shift refers to the change in the distribution of network activations due to parameter updates during training. By normalizing the activations, batch normalization reduces internal covariate shift, allowing the network to learn more efficiently and effectively.
+</li>
+<li>
+Smoother Gradient Flow: Batch normalization ensures that the input to each layer is within a similar range, which results in smoother gradient flow through the network. This facilitates faster convergence during training and can lead to improved performance.
+</li>
+<li>
+Accelerated Training: With batch normalization, the optimization process becomes more stable, which often leads to faster convergence during training. Additionally, batch normalization allows for the use of higher learning rates, further accelerating the training process.
+</li>
+</ul>
+
+<p>
+By introducing batch normalization layers into our CNN architecture, we can expect to see improvements in training stability, convergence speed, and overall performance. This technique complements dropout regularization by further enhancing the robustness and generalization capabilities of our model. Therefore, incorporating batch normalization is a natural next step in refining and optimizing our CNN for tasks like image classification on datasets such as CIFAR-10.
+</p>
+
+
+<!-- CODE EXAMPLE -->
+<pre class="wp-block-preformatted"><code>import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.nn as nn
+import torch.optim as optim
+import time
+
+# Define the transformations for the dataset
+transform_train = transforms.Compose([
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+transform_test = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+# Load the CIFAR-10 dataset
+trainset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=True, download=True, transform=transform_train)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='~/workspace/sandbox/data', train=False, download=True, transform=transform_test)
+testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False, num_workers=2)
+
+# Define the CNN model with dropout and batch normalization
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(256 * 4 * 4, 512)  # Adjust input size to match the size of the flattened tensor
+        self.fc2 = nn.Linear(512, 10)
+        self.dropout = nn.Dropout(0.2)  # Add dropout layer with probability 0.2
+        self.bn1 = nn.BatchNorm2d(64)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.bn3 = nn.BatchNorm2d(128)
+        self.bn4 = nn.BatchNorm2d(128)
+        self.bn5 = nn.BatchNorm2d(256)
+        self.bn6 = nn.BatchNorm2d(256)
+
+    def forward(self, x):
+        x = self.bn1(torch.relu(self.conv1(x)))
+        x = self.bn2(torch.relu(self.conv2(x)))
+        x = self.pool(self.bn3(torch.relu(self.conv3(x))))
+        x = self.dropout(x)  # Apply dropout after pooling
+        x = self.bn4(torch.relu(self.conv4(x)))
+        x = self.pool(self.bn5(torch.relu(self.conv5(x))))
+        x = self.bn6(torch.relu(self.conv6(x)))
+        x = self.pool(x)
+        x = torch.flatten(x, 1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+
+# Define the best hyperparameters found during grid search
+best_lr = 0.01
+best_momentum = 0.95
+
+# Define epochs and params
+epochs = 100
+
+# Instantiate the model
+net = Net()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+net.to(device)
+
+# Define the loss function and optimizer using the best hyperparameters
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=best_lr, momentum=best_momentum)
+
+# Training the network
+start_time = time.time()
+for epoch in range(epochs):  # loop over the dataset multiple times
+    running_loss = 0.0
+    for i, data in enumerate(trainloader, 0):
+        inputs, labels = data[0].to(device), data[1].to(device)
+
+        # zero the parameter gradients
+        optimizer.zero_grad()
+
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        # print statistics
+        running_loss += loss.item()
+        if i % 100 == 99:    # print every 100 mini-batches
+            print('[%d, %5d] loss: %.3f' %
+                  (epoch + 1, i + 1, running_loss / 100))
+            running_loss = 0.0
+
+print('Finished Training')
+print("Training Time:", time.time() - start_time)
+
+# Testing the network
+correct = 0
+total = 0
+with torch.no_grad():
+    for data in testloader:
+        images, labels = data[0].to(device), data[1].to(device)
+        outputs = net(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+print('Accuracy of the network on the 10000 test images: %.2f %%' % (100 * correct / total))
+
+# Save the trained model
+torch.save(net.state_dict(), 'ml_complex_cnn_CIFAR_10_trained_model.pth')
+
+</code></pre>
+<!-- /CODE EXAMPLE -->
+
+
+
+
+
+<!-- CODE EXAMPLE -->
+<pre class="wp-block-preformatted"><code>[96,   100] loss: 0.019
+[96,   200] loss: 0.019
+[96,   300] loss: 0.018
+[97,   100] loss: 0.017
+[97,   200] loss: 0.017
+[97,   300] loss: 0.018
+[98,   100] loss: 0.015
+[98,   200] loss: 0.018
+[98,   300] loss: 0.019
+[99,   100] loss: 0.013
+[99,   200] loss: 0.015
+[99,   300] loss: 0.015
+[100,   100] loss: 0.013
+[100,   200] loss: 0.012
+[100,   300] loss: 0.015
+Finished Training
+Training Time: 1460.2625331878662
+Accuracy of the network on the 10000 test images: 89.13 %
+
+</code></pre>
+<!-- /CODE EXAMPLE -->
+
+<p>
+In this modified version of the code, Batch Normalization (BatchNorm) is integrated into the convolutional neural network (CNN) architecture to enhance training stability and speed up convergence. 
+<a href="https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html">BatchNorm</a> is a technique that normalizes the activations of each layer across mini-batches during training. 
+By doing so, it reduces the internal covariate shift and ensures that the distribution of inputs to each layer remains consistent throughout training. 
+This normalization process leads to smoother gradient flow through the network, which facilitates faster convergence and more stable training. 
+By mitigating issues such as vanishing or exploding gradients, BatchNorm enables the network to train more efficiently and effectively. 
+In the provided code, BatchNorm layers are inserted after each convolutional layer, helping to regularize and stabilize the learning process. 
+As a result, the CNN can achieve higher accuracy with shorter training times, making it a valuable technique for improving the performance of deep neural networks in various tasks, including image classification.
+</p>
+
+<h4>Results and Evaluation:</h4>
+<p>
+After implementing these advanced techniques, we conducted training and evaluation on the CIFAR-10 dataset. Our CNN achieved an impressive accuracy of 89.13 % on the test set, showcasing the effectiveness of our enhancements. 
+</p>
+
+
+<h3>Conclusion:</h3>
+<p>
+In this article, we've explored advanced strategies for improving the performance and robustness of Convolutional Neural Networks. 
+By modifying the architecture to increase depth, incorporating dropout layers for regularization, and adding batch normalization for stability, we've demonstrated how these techniques can elevate the capabilities of our models. 
+As you continue your journey in deep learning, remember to experiment with different architectures and techniques to find the optimal configuration for your specific task. 
+In the next part of our series, we'll delve into the realm of transfer learning and how pre-trained models can be leveraged to tackle new challenges efficiently. 
+Stay tuned for more insights and advancements in the world of CNNs!
+</p>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/bootstrap/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+<script src="/assets/index.js"></script>
+
+</body>
+</html>

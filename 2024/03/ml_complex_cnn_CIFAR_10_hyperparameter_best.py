@@ -57,7 +57,7 @@ best_lr = 0.01
 best_momentum = 0.95
 
 # Define epochs and params
-epochs = 100
+epochs = 10
 
 # Instantiate the model
 net = Net()
