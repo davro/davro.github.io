@@ -206,7 +206,7 @@ class Economics
 
             if ($sequence[0] == 'Phase') {
                 $template.= '<h3>';
-                $template.= $sequence[0].' '.$sequence[1] . ' ' . $sequence[2];
+                $template.= $sequence[0] . ' ' . $sequence[1] . ' ' . $sequence[2];
                 $template.= '</h3>';
             } else {
 
@@ -274,7 +274,7 @@ class Economics
           scrollToEconomicsOfCurrentYear();
         });
         </script>
-        EOT;
+EOT;
 
 
     	echo ($template);
@@ -327,7 +327,7 @@ class Economics
                 }
 
 //                $data[] = ['Phase', 'Transition ' . $publicPrivate, 'deflation' . ' ('.$sequence.')'];
-                $data[] = ['Phase', 'Transition ' . $publicPrivate, 'deflation'];
+                $data[] = ['Phase', 'Transition - ' . $publicPrivate, 'deflation'];
             }
 
             // Low High flip flop

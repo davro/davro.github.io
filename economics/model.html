@@ -102,7 +102,7 @@
         </tr>
     </table>
 </li>
-</ul><hr /></section></div><div><h3>Phase Transition private deflation</h3></div><div><section id="year-1986"><h4>1986 <i>low</i></h4><ul><li>
+</ul><hr /></section></div><div><h3>Phase Transition - private deflation</h3></div><div><section id="year-1986"><h4>1986 <i>low</i></h4><ul><li>
     <table>
         <tr>
             <td width="150px">1989.01.01</td>
@@ -478,7 +478,7 @@
         </tr>
     </table>
 </li>
-</ul><hr /></section></div><div><h3>Phase Transition public deflation</h3></div><div><section id="year-2037"><h4>2037 <i>low</i></h4><ul><li>
+</ul><hr /></section></div><div><h3>Phase Transition - public deflation</h3></div><div><section id="year-2037"><h4>2037 <i>low</i></h4><ul><li>
     <table>
         <tr>
             <td width="150px">2037</td>
@@ -654,7 +654,7 @@
         </tr>
     </table>
 </li>
-</ul><hr /></section></div><div><section id="year-2076"><h4>2076 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2080"><h4>2080 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2085"><h4>2085 <i>high</i></h4><ul></ul><hr /></section></div><div><h3>Phase Transition private deflation</h3></div><div><section id="year-2089"><h4>2089 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2093"><h4>2093 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2097"><h4>2097 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2102"><h4>2102 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2106"><h4>2106 <i>low</i></h4><ul><li>
+</ul><hr /></section></div><div><section id="year-2076"><h4>2076 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2080"><h4>2080 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2085"><h4>2085 <i>high</i></h4><ul></ul><hr /></section></div><div><h3>Phase Transition - private deflation</h3></div><div><section id="year-2089"><h4>2089 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2093"><h4>2093 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2097"><h4>2097 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2102"><h4>2102 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2106"><h4>2106 <i>low</i></h4><ul><li>
     <table>
         <tr>
             <td width="150px">2107.01.01</td>
@@ -670,7 +670,7 @@
         </tr>
     </table>
 </li>
-</ul><hr /></section></div><div><section id="year-2128"><h4>2128 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2132"><h4>2132 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2136"><h4>2136 <i>high</i></h4><ul></ul><hr /></section></div><div><h3>Phase Transition public deflation</h3></div><div><section id="year-2140"><h4>2140 <i>low</i></h4><ul><li>
+</ul><hr /></section></div><div><section id="year-2128"><h4>2128 <i>high</i></h4><ul></ul><hr /></section></div><div><section id="year-2132"><h4>2132 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2136"><h4>2136 <i>high</i></h4><ul></ul><hr /></section></div><div><h3>Phase Transition - public deflation</h3></div><div><section id="year-2140"><h4>2140 <i>low</i></h4><ul><li>
     <table>
         <tr>
             <td width="150px">2143.01.01</td>
@@ -694,29 +694,29 @@
         </tr>
     </table>
 </li>
-</ul><hr /></section></div><div><section id="year-2183"><h4>2183 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2188"><h4>2188 <i>high</i></h4><ul></ul><hr /></section></div><div><h3>Phase Transition private deflation</h3></div><script>
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log("Content Loaded");
+</ul><hr /></section></div><div><section id="year-2183"><h4>2183 <i>low</i></h4><ul></ul><hr /></section></div><div><section id="year-2188"><h4>2188 <i>high</i></h4><ul></ul><hr /></section></div><div><h3>Phase Transition - private deflation</h3></div>        <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+          console.log("Content Loaded");
 
-  // Function to scroll to the Economics section of the current year
-  function scrollToEconomicsOfCurrentYear() {
+          // Function to scroll to the Economics section of the current year
+          function scrollToEconomicsOfCurrentYear() {
 
-    const currentYear = new Date().getFullYear();
+            const currentYear = new Date().getFullYear();
 
-    let nextAvailableYear = currentYear;
-    while (!document.getElementById("year-" + nextAvailableYear)) {
-      console.log("Search for Economic Year " + nextAvailableYear);
-      nextAvailableYear++;
-    }
+            let nextAvailableYear = currentYear;
+            while (!document.getElementById("year-" + nextAvailableYear)) {
+              console.log("Search for Economic Year " + nextAvailableYear);
+              nextAvailableYear++;
+            }
 
-    const economicsSection = document.getElementById("year-" + nextAvailableYear);
-    if (economicsSection) {
-      console.log("Scrolling to " + nextAvailableYear);
-      economicsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
+            const economicsSection = document.getElementById("year-" + nextAvailableYear);
+            if (economicsSection) {
+              console.log("Scrolling to " + nextAvailableYear);
+              economicsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
 
-  // Scroll to Economics section of current year when the page loads
-  scrollToEconomicsOfCurrentYear();
-});
-</script>
+          // Scroll to Economics section of current year when the page loads
+          scrollToEconomicsOfCurrentYear();
+        });
+        </script>
