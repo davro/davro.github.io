@@ -166,6 +166,9 @@ document.querySelectorAll("[data-go-to-id]").forEach(function(link) {
 function loadArticles() {
     // Fetch the JSON file containing articles
     //fetch("https://davro.github.io/site.json")
+
+    console.log("Loading Article ...");
+
     fetch("/site.json")
     .then(response => response.json())
     .then(data => {
@@ -192,6 +195,7 @@ function loadArticles() {
             pageLink.addEventListener("click", () => displayArticles(i));
             pageItem.appendChild(pageLink);
             paginationContainer.appendChild(pageItem);
+
         }
 
         // Display the first page initially
@@ -222,81 +226,182 @@ function loadArticles() {
     .catch(error => console.error("Error fetching JSON:", error));
 }
 
+
 document.addEventListener("DOMContentLoaded", function () {
     loadArticles();
 });
 
-// Function to handle hash change
-function handleHashChange() {
-    var hash = window.location.hash;
-    if (hash === '' || hash === null) {
+function loadArticles() {
+    // Fetch the JSON file containing articles
+    fetch("/site.json")
+    .then(response => response.json())
+    .then(data => {
+        // Update the title, keywords, and articles grid with the fetched data
+        document.title = data.site.title;
+        document.querySelector('meta[name="keywords"]').content = data.site.keywords;
 
-        // Handle the case where hash is empty
-        loadArticles();
-        //console.log("Hash value is empty");
+        // Paginate the articles
+        const articlesPerPage = 9; // Change this value based on your preference
+        const totalPages = Math.ceil(data.site.articles.length / articlesPerPage);
 
-    } else {
-        // Handle the case where hash value is not empty
-        //console.log("Hash value changed:", hash);
+        // Initialize pagination
+        const paginationContainer = document.getElementById("pagination");
+        paginationContainer.innerHTML = "";
 
-        // Perform actions based on the hash value
-        const articleGrid = document.getElementById("article-grid");
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement("li");
+            pageItem.classList.add("page-item");
 
-        switch (hash) {
-            case '#books':
-                // Handle books hash
-                articleGrid.innerHTML = "BOOKS Coming soon!";
-//                console.log("Books hash detected");
-                break;
+            const pageLink = document.createElement("a");
+            pageLink.classList.add("page-link");
+            pageLink.href = `#page${i}`;  // Set the href to include page number in the hash
+            pageLink.textContent = i;
 
-            // Section Economics
-            case '#economics':
-                // Handle coding hash
-                articleGrid.innerHTML = "ECONOMICS Coming soon!";
+            // Add event listener for pagination link click
+            pageLink.addEventListener("click", function(event) {
+                event.preventDefault();  // Prevent the default anchor behavior
+                window.location.hash = `#page${i}`;  // Update the URL hash
 
-                // Modify the class
-                articleGrid.classList.remove('row-cols-md-3');
-                articleGrid.classList.add('row-cols-1');
+                displayArticles(i);  // Directly display the selected page
+                updatePagination(i);  // Update active pagination class
+            });
 
-                // Fetch the HTML file
-                fetch('/economics/model.html')
-                  .then(response => {
-                    // Check if the response is successful
-                    if (!response.ok) {
-                      throw new Error('Failed to fetch HTML file');
-                    }
-                    // Return the HTML content
-                    return response.text();
-                  })
-                  .then(htmlContent => {
-                    // Render the fetched HTML content into the articleGrid element
-                    articleGrid.innerHTML = htmlContent;
-                  })
-                  .catch(error => {
-                    // Handle any errors that occur during the fetch
-                    console.error('Error fetching HTML file:', error);
-                  });
-
-                break;
-
-            // Section Crypto
-            case '#crypto':
-                // Handle coding hash
-                //
-                //pairTest = 'https://api.dexscreener.com/latest/dex/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8,0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
-                pairTest = 'https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xE56043671df55dE5CDf8459710433C10324DE0aE';
-
-                fetch(pairTest)
-                .then(response => response.json())
-                .then(data => {
-                    // Update the title, keywords, and articles grid with the fetched data
-                    articleGrid.innerHTML = "<div><strong>PLS:</strong> " + data.pair.priceUsd + "</div>";
-                    console.log("Data:", data);
-                })
-                .catch(error => console.error("Error fetching JSON:", error));
+            pageItem.appendChild(pageLink);
+            paginationContainer.appendChild(pageItem);
         }
-    }
+
+        // Handle initial load or hash change event
+        function handleHashChange() {
+            const hash = window.location.hash;
+
+            if (!hash || hash === '#') {
+                displayArticles(1);  // Default to the first page if no hash is present
+                updatePagination(1);
+            } else {
+                const pageNum = parseInt(hash.replace('#page', ''), 10);
+                if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+                    displayArticles(pageNum);
+                    updatePagination(pageNum);
+                } else {
+                    displayArticles(1);  // Default to the first page for invalid hashes
+                    updatePagination(1);
+                }
+            }
+        }
+
+        // Function to display articles for a specific page
+        function displayArticles(page) {
+            const startIdx = (page - 1) * articlesPerPage;
+            const endIdx = startIdx + articlesPerPage;
+            const currentArticles = data.site.articles.slice(startIdx, endIdx);
+
+            // Clear the article grid
+            const articleGrid = document.getElementById("article-grid");
+            articleGrid.innerHTML = "";
+
+            // Populate the articles grid
+            currentArticles.forEach(article => {
+                const articleCard = createArticleCard(article);
+                articleGrid.appendChild(articleCard);
+            });
+        }
+
+        // Function to update the active class on pagination links
+        function updatePagination(page) {
+            const paginationLinks = document.querySelectorAll(".page-link");
+            paginationLinks.forEach(link => link.classList.remove("active"));
+
+            const activeLink = document.querySelector(`a[href="#page${page}"]`);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        }
+
+        // Add event listener for hashchange
+        window.addEventListener("hashchange", handleHashChange);
+
+        // Call handleHashChange on initial load to check initial hash value
+        handleHashChange();
+    })
+    .catch(error => console.error("Error fetching JSON:", error));
 }
+
+
+// // Function to handle hash change
+// function handleHashChange() {
+//     var hash = window.location.hash;
+
+//     console.log("Hash:", hash);
+
+//     if (hash === '' || hash === null) {
+
+//         // Handle the case where hash is empty
+//         loadArticles();
+
+//         console.log("Hash value is empty");
+
+//     } else {
+//         // Handle the case where hash value is not empty
+//         console.log("Hash found:", hash);
+
+//         // Perform actions based on the hash value
+//         const articleGrid = document.getElementById("article-grid");
+
+//         switch (hash) {
+//             case '#books':
+//                 // Handle books hash
+//                 articleGrid.innerHTML = "BOOKS Coming soon!";
+// //                console.log("Books hash detected");
+//                 break;
+
+//             // Section Economics
+//             case '#economics':
+//                 // Handle coding hash
+//                 articleGrid.innerHTML = "ECONOMICS Coming soon!";
+
+//                 // Modify the class
+//                 articleGrid.classList.remove('row-cols-md-3');
+//                 articleGrid.classList.add('row-cols-1');
+
+//                 // Fetch the HTML file
+//                 fetch('/economics/model.html')
+//                   .then(response => {
+//                     // Check if the response is successful
+//                     if (!response.ok) {
+//                       throw new Error('Failed to fetch HTML file');
+//                     }
+//                     // Return the HTML content
+//                     return response.text();
+//                   })
+//                   .then(htmlContent => {
+//                     // Render the fetched HTML content into the articleGrid element
+//                     articleGrid.innerHTML = htmlContent;
+//                   })
+//                   .catch(error => {
+//                     // Handle any errors that occur during the fetch
+//                     console.error('Error fetching HTML file:', error);
+//                   });
+
+//                 break;
+
+//             // Section Crypto
+//             case '#crypto':
+//                 // Handle coding hash
+//                 //
+//                 //pairTest = 'https://api.dexscreener.com/latest/dex/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8,0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+//                 pairTest = 'https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xE56043671df55dE5CDf8459710433C10324DE0aE';
+
+//                 fetch(pairTest)
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     // Update the title, keywords, and articles grid with the fetched data
+//                     articleGrid.innerHTML = "<div><strong>PLS:</strong> " + data.pair.priceUsd + "</div>";
+//                     console.log("Data:", data);
+//                 })
+//                 .catch(error => console.error("Error fetching JSON:", error));
+//         }
+//     }
+// }
 
 // Add event listener for hashchange event
 window.addEventListener("hashchange", handleHashChange);
