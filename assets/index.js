@@ -1,6 +1,6 @@
-//
+////////////////////////////////////////////////////////////////////////////////
 // index.js
-//
+////////////////////////////////////////////////////////////////////////////////
 
 //
 // Function to format the date string
@@ -20,7 +20,7 @@ function formatDate(dateString) {
     return `${year}/${month}`;
 }
 
-//
+////////////////////////////////////////////////////////////////////////////////
 // Function to create an article card
 //
 // images
@@ -28,6 +28,7 @@ function formatDate(dateString) {
 //   -300x157.jpg
 //   -768x402.jpg
 //
+////////////////////////////////////////////////////////////////////////////////
 function createArticleCard(article) {
     const formattedDate = formatDate(article.date);
 
@@ -38,35 +39,12 @@ function createArticleCard(article) {
 
     // Check if article.image is provided
     // <a href="data/${article.url}.html">
-        // hx-get="http://localhost:8000/data/the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html" hx-target="#article"
+    // hx-get="http://localhost:8000/data/the-rise-of-deep-tech-transforming-industries-and-shaping-the-future.html" hx-target="#article"
     //<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadHTML('yourfile.html')">Open Modal</button>
-        //onclick="loadHTML('/data/articles/${article.url}.html')"
+    //onclick="loadHTML('/data/articles/${article.url}.html')"
     if (article.image) {
-	/*
-        AImgTag = `
-            <div>
-            <img srcset="${formattedDate}/${article.image}-150x150.jpg 150w,
-            ${formattedDate}/${article.image}-300x157.jpg 300w,
-            ${formattedDate}/${article.image}-768x402.jpg 768w"
-        sizes="(max-width: 576px) 150px,
-            (max-width: 768px) 300px,
-            768px"
-        src="${formattedDate}/${article.image}-300x157.jpg"
-        alt="${article.title} Image"
-        class="card-img-top"
 
-        data-bs-toggle="modal"
-        data-bs-target="#articleModal"
-        onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}-768x402.jpg')"
-            >
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal" onclick="loadHTML('/${formattedDate}/${article.url}.html', '${article.title}', '${formattedDate}/${article.image}.jpg')">Open Article</button>
-            <a href="/${formattedDate}/${article.url}.html" target="_blank" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> PermaLink</a>
-
-            </div>
-            `;
-//*/
-
-	// Simplified version without the srcset.
+	    // Simplified version without the srcset.
         AImgTag = `
             <div>
             <img
@@ -99,9 +77,11 @@ function createArticleCard(article) {
     return card;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 //
 // Function loadHTML
 //
+////////////////////////////////////////////////////////////////////////////////
 function loadHTML(htmlFilePath, articleModalTitle, articleModalImage) {
     // Fetch HTML content
     fetch(htmlFilePath)
@@ -113,16 +93,11 @@ function loadHTML(htmlFilePath, articleModalTitle, articleModalImage) {
         })
         .then(htmlContent => {
 
-            // Update the 'article' title and div in the modal
-            //document.getElementById('articleModalImage').src = articleModalImage;
-            //
-                //document.getElementById('article-modal-title').innerHTML = articleModalTitle;
             document.getElementById('article-modal-title').innerHTML = "WordGit - Davro.net";
-
             document.getElementById('article').innerHTML = htmlContent;
 
             // Show the modal
-            //            new bootstrap.Modal(document.getElementById('articleModal')).show();
+            //new bootstrap.Modal(document.getElementById('articleModal')).show();
         })
         .catch(error => {
             console.error('Error fetching the HTML file:', error);
@@ -142,8 +117,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
         // Now you can use the clickedId as needed
     });
 });
-
-
 
 /*
 document.querySelectorAll("[data-go-to-id]").forEach(function(link) {
@@ -283,8 +256,66 @@ function loadArticles() {
                     displayArticles(pageNum);
                     updatePagination(pageNum);
                 } else {
-                    displayArticles(1);  // Default to the first page for invalid hashes
-                    updatePagination(1);
+
+                    const articleGrid = document.getElementById("article-grid");
+
+                    switch (hash) {
+                        case '#books':
+                            // Handle books hash
+                            articleGrid.innerHTML = "BOOKS Coming soon!";
+                            console.log("Books hash detected");
+                        break;
+
+                        case '#economics':
+                            // Handle coding hash
+                            articleGrid.innerHTML = "ECONOMICS Coming soon!";
+
+                            // Modify the class
+                            articleGrid.classList.remove('row-cols-md-3');
+                            articleGrid.classList.add('row-cols-1');
+
+                            // Fetch the HTML file
+                            fetch('/economics/model.html')
+                            .then(response => {
+                                // Check if the response is successful
+                                if (!response.ok) {
+                                throw new Error('Failed to fetch HTML file');
+                                }
+                                // Return the HTML content
+                                return response.text();
+                            })
+                            .then(htmlContent => {
+                                // Render the fetched HTML content into the articleGrid element
+                                articleGrid.innerHTML = htmlContent;
+                            })
+                            .catch(error => {
+                                // Handle any errors that occur during the fetch
+                                console.error('Error fetching HTML file:', error);
+                            });
+
+                        break;
+
+                        // case '#crypto':
+                        //     articleGrid.innerHTML = "Crypto Coming soon!";
+
+                        //     //pairTest = 'https://api.dexscreener.com/latest/dex/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8,0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+                        //     pairTest = 'https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xE56043671df55dE5CDf8459710433C10324DE0aE';
+
+                        //     fetch(pairTest)
+                        //     .then(response => response.json())
+                        //     .then(data => {
+                        //         // Update the title, keywords, and articles grid with the fetched data
+                        //         articleGrid.innerHTML = "<div><strong>PLS:</strong> " + data.pair.priceUsd + "</div>";
+                        //         console.log("Data:", data);
+                        //     })
+                        //     .catch(error => console.error("Error fetching JSON:", error));
+                        // break;
+
+                        default:
+                        // code block
+                        displayArticles(1);  // Default to the first page for invalid hashes
+                        updatePagination(1);
+                    }
                 }
             }
         }
@@ -326,88 +357,8 @@ function loadArticles() {
     .catch(error => console.error("Error fetching JSON:", error));
 }
 
-
-// // Function to handle hash change
-// function handleHashChange() {
-//     var hash = window.location.hash;
-
-//     console.log("Hash:", hash);
-
-//     if (hash === '' || hash === null) {
-
-//         // Handle the case where hash is empty
-//         loadArticles();
-
-//         console.log("Hash value is empty");
-
-//     } else {
-//         // Handle the case where hash value is not empty
-//         console.log("Hash found:", hash);
-
-//         // Perform actions based on the hash value
-//         const articleGrid = document.getElementById("article-grid");
-
-//         switch (hash) {
-//             case '#books':
-//                 // Handle books hash
-//                 articleGrid.innerHTML = "BOOKS Coming soon!";
-// //                console.log("Books hash detected");
-//                 break;
-
-//             // Section Economics
-//             case '#economics':
-//                 // Handle coding hash
-//                 articleGrid.innerHTML = "ECONOMICS Coming soon!";
-
-//                 // Modify the class
-//                 articleGrid.classList.remove('row-cols-md-3');
-//                 articleGrid.classList.add('row-cols-1');
-
-//                 // Fetch the HTML file
-//                 fetch('/economics/model.html')
-//                   .then(response => {
-//                     // Check if the response is successful
-//                     if (!response.ok) {
-//                       throw new Error('Failed to fetch HTML file');
-//                     }
-//                     // Return the HTML content
-//                     return response.text();
-//                   })
-//                   .then(htmlContent => {
-//                     // Render the fetched HTML content into the articleGrid element
-//                     articleGrid.innerHTML = htmlContent;
-//                   })
-//                   .catch(error => {
-//                     // Handle any errors that occur during the fetch
-//                     console.error('Error fetching HTML file:', error);
-//                   });
-
-//                 break;
-
-//             // Section Crypto
-//             case '#crypto':
-//                 // Handle coding hash
-//                 //
-//                 //pairTest = 'https://api.dexscreener.com/latest/dex/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8,0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
-//                 pairTest = 'https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xE56043671df55dE5CDf8459710433C10324DE0aE';
-
-//                 fetch(pairTest)
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     // Update the title, keywords, and articles grid with the fetched data
-//                     articleGrid.innerHTML = "<div><strong>PLS:</strong> " + data.pair.priceUsd + "</div>";
-//                     console.log("Data:", data);
-//                 })
-//                 .catch(error => console.error("Error fetching JSON:", error));
-//         }
-//     }
-// }
-
 // Add event listener for hashchange event
 window.addEventListener("hashchange", handleHashChange);
 
 // Call handleHashChange function on initial load to check initial hash value
 handleHashChange();
-
-
-
